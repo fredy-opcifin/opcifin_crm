@@ -1,0 +1,35 @@
+/* 1. CONFIGURACIÓN DEL LOGO (Para todas las pantallas) */
+#branding h1::before {
+    content: "" !important;
+    display: inline-block !important;
+    width: 45px !important;
+    height: 45px !important;
+    /* Ruta directa que confirmamos que funciona */
+    background: url('/static/admin/img/logo_opcifin.png') no-repeat center !important;
+    background-size: contain !important;
+    margin-right: 15px !important;
+    vertical-align: middle !important;
+}
+
+/* 2. AJUSTE DEL TEXTO OPCIFIN */
+#branding h1 {
+    display: flex !important;
+    align-items: center !important;
+    color: #D4AF37 !important; /* Dorado OPCIFIN */
+    font-weight: bold !important;
+}
+
+/* 3. COLORES DEL PANEL (Azul y Dorado) */
+#header {
+    background: #00A3D3 !important; /* Azul cielo OPCIFIN */
+}
+
+.module h2, .module caption, div.breadcrumbs {
+    background: #007DA1 !important; /* Azul oscuro */
+}
+
+.button, input[type=submit], .submit-row input {
+    background: #D4AF37 !important; /* Dorado botones */
+    border: none !important;
+    color: white !important;
+}

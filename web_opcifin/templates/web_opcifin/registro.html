@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Estudio de Crédito - OPCIFIN</title>
+    <style>
+        body { font-family: sans-serif; background: #f4f7f6; padding: 20px; }
+        .container { max-width: 600px; background: white; margin: 0 auto; padding: 30px; border-top: 5px solid #D4AF37; border-radius: 8px; }
+        h2 { color: #001A33; }
+        .campo { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #001A33; }
+        input[type="text"], input[type="file"] { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
+        .btn-enviar { background: #D4AF37; color: white; padding: 15px; border: none; width: 100%; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Solicitud de Estudio Financiero</h2>
+        <p>Por favor, completa tus datos y carga los documentos en formato PDF.</p>
+        
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="campo">
+                <label>Nombre Completo:</label>
+                <input type="text" name="nombre" required placeholder="Ej: Fredy Javier Diaz">
+            </div>
+
+            <div class="campo">
+                <label>Fotocopia Cédula (Ambos lados - PDF):</label>
+                <input type="file" name="cedula" accept=".pdf" required>
+            </div>
+
+            <div class="campo">
+                <label>Desprendible de Pago 1 (PDF):</label>
+                <input type="file" name="pago1" accept=".pdf" required>
+            </div>
+            <div class="campo">
+                <label>Desprendible de Pago 2 (PDF):</label>
+                <input type="file" name="pago2" accept=".pdf" required>
+            </div>
+            <div class="campo">
+                <label>Desprendible de Pago 3 (PDF):</label>
+                <input type="file" name="pago3" accept=".pdf" required>
+            </div>
+
+            <div class="campo">
+                <label>Certificado Laboral (PDF):</label>
+                <input type="file" name="certificado" accept=".pdf" required>
+            </div>
+
+            <button type="submit" class="btn-enviar">ENVIAR SOLICITUD A ESTUDIO</button>
+        </form>
+    </div>
+</body>
+</html>

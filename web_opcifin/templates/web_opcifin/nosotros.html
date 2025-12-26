@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Nosotros - OPCIFIN</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
+        nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5%;
+    background: #038692; /* Tu nuevo color llamativo */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Sombra un poco más marcada */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-links a { 
+    text-decoration: none; 
+    color: #ffffff; 
+    font-weight: 700; /* Letras un poco más gruesas para que resalten */
+    font-size: 0.9em; 
+    transition: 0.3s;
+}
+
+.nav-links a:hover { 
+    color: #D4AF37; /* El dorado de OPCIFIN al pasar el mouse */
+}    
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo-container">
+            <a href="/"><img src="{% static 'img/logo_opcifin.png' %}" style="height: 70px;"></a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="/">INICIO</a></li>
+            <li><a href="/servicios/">SERVICIOS</a></li>
+            <li><a href="/nosotros/">NOSOTROS</a></li>
+            <li><a href="/contacto/">CONTACTO</a></li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <h1>Conoce a <span class="gold">OPCIFIN</span></h1>
+        <p>Somos un broker financiero con más de 10 años de experiencia en Valledupar y cobertura nacional.</p>
+        </div>
+</body>
+</html>
