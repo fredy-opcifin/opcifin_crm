@@ -1,0 +1,155 @@
+{% extends 'web_opcifin/index.html' %}
+{% load static %}
+
+{% block title %}Crédito Hipotecario y Leasing | OPCIFIN{% endblock %}
+
+{% block content %}
+<style>
+    .floating-asset {
+        animation: float 5s ease-in-out infinite;
+        filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.15));
+        max-width: 100%;
+        height: auto;
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-15px); }
+        100% { transform: translateY(0px); }
+    }
+
+    .border-accent {
+        border-left: 5px solid var(--detalles) !important;
+    }
+</style>
+
+<div style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{% static "img/hipotecario_banner.jpg" %}') no-repeat center/cover; padding: 130px 0; color: white; text-align: center; border-bottom: 5px solid var(--detalles);">
+    <div class="container" data-aos="zoom-in">
+        <h1 class="display-3 fw-bold">Crédito <span style="color: var(--detalles);">Hipotecario</span></h1>
+        <p class="lead fs-4 fw-light" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.9);">Transformamos el sueño de tener casa propia en una realidad sólida.</p>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row g-5">
+        <div class="col-lg-8">
+            <div data-aos="fade-up">
+                <h2 class="fw-bold mb-4" style="color: var(--encabezado);">Financiación Integral para Vivienda</h2>
+                <p class="fs-5 text-muted">
+                    Ya sea que busques tu primera vivienda (VIS), una inversión en estrato superior (No VIS) o mejorar tu hogar actual, en <strong>OPCIFIN</strong> conectamos tus necesidades con las mejores líneas de crédito de bancos como Davivienda, Bancolombia, BBVA y entidades especializadas.
+                </p>
+            </div>
+
+            <div class="row my-5">
+                <div class="col-md-6 mb-4" data-aos="fade-right">
+                    <div class="p-4 border-accent bg-light shadow-sm rounded-4 h-100">
+                        <h5 class="fw-bold" style="color: var(--encabezado);"><i class="bi bi-house-heart-fill me-2 text-danger"></i>Compra de Vivienda</h5>
+                        <p class="text-muted small mb-0">Nuevas o usadas. Te asesoramos para elegir entre Crédito Tradicional (hasta 70%) o Leasing Habitacional (hasta 80%).</p>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4" data-aos="fade-left">
+                    <div class="p-4 border-accent bg-light shadow-sm rounded-4 h-100">
+                        <h5 class="fw-bold" style="color: var(--encabezado);"><i class="bi bi-hammer me-2 text-secondary"></i>Remodelación y Mejora</h5>
+                        <p class="text-muted small mb-0">Liquidez inmediata para transformar tu espacio actual. Valoriza tu patrimonio con tasas preferenciales.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rounded-5 p-4 p-md-5 mb-5 shadow-sm"
+                 style="background-color: #f0faff; border: 1px solid #e1f0f7;"
+                 data-aos="fade-up">
+
+                <div class="row align-items-center">
+                    <div class="col-lg-7">
+                        <h3 class="fw-bold mb-4 pb-2" style="color: var(--encabezado); border-bottom: 3px solid var(--detalles); display: inline-block;">
+                            Lo que debes saber
+                        </h3>
+
+                        <div class="accordion shadow-sm rounded-4 overflow-hidden" id="accHipotecario">
+                            <div class="accordion-item border-0 mb-2 rounded-3 overflow-hidden">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button fw-bold bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#h1">
+                                        <i class="bi bi-calendar-check me-2 text-primary"></i> Plazos y Tasas
+                                    </button>
+                                </h2>
+                                <div id="h1" class="accordion-collapse collapse show" data-bs-parent="#accHipotecario">
+                                    <div class="accordion-body bg-white text-muted small">
+                                        Plazos flexibles de <strong>5 a 20 años</strong>. Elige entre cuota fija en pesos o UVR según tu perfil de riesgo y capacidad mensual.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item border-0 mb-2 rounded-3 overflow-hidden">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed fw-bold bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#h2">
+                                        <i class="bi bi-cash-coin me-2 text-success"></i> Porcentaje a Financiar
+                                    </button>
+                                </h2>
+                                <div id="h2" class="accordion-collapse collapse" data-bs-parent="#accHipotecario">
+                                    <div class="accordion-body bg-white text-muted small">
+                                        Financiamos hasta el <strong>70%</strong> del avalúo comercial en crédito tradicional y hasta el <strong>80%</strong> en Leasing Habitacional (ideal para beneficios tributarios).
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item border-0 rounded-3 overflow-hidden">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed fw-bold bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#h3">
+                                        <i class="bi bi-file-earmark-text me-2 text-warning"></i> Requisitos Base
+                                    </button>
+                                </h2>
+                                <div id="h3" class="accordion-collapse collapse" data-bs-parent="#accHipotecario">
+                                    <div class="accordion-body bg-white text-muted small">
+                                        <ul>
+                                            <li>Certificación laboral y 3 últimos desprendibles.</li>
+                                            <li>Extractos bancarios (últimos 3 meses).</li>
+                                            <li>Declaración de renta (si aplica).</li>
+                                            <li>Avalúo y estudio de títulos (nosotros coordinamos esto por ti).</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5 d-none d-lg-block text-center">
+                        <img src="{% static 'img/fondo_hipotecario_2.png' %}"
+                             alt="Sueño de Vivienda Opcifin"
+                             class="floating-asset">
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-warning border-0 p-4 shadow-sm rounded-4" data-aos="fade-up">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-stars fs-2 me-3 text-dark"></i>
+                    <p class="mb-0 small text-dark"><strong>Gestión Multibanca:</strong> No te desgastes yendo de banco en banco. Nosotros radicamos tu solicitud en la entidad donde tu perfil tenga mayor probabilidad de aprobación inmediata.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-lg p-4" style="position: sticky; top: 110px; border-radius: 20px; background: #fefefe;" data-aos="fade-left">
+                <div class="text-center mb-4">
+                    <i class="bi bi-houses-fill fs-1 text-warning"></i>
+                    <h4 class="fw-bold mt-3" style="color: var(--encabezado);">¿Hablamos de tu casa?</h4>
+                </div>
+
+                <a href="https://wa.me/573102001662?text=Hola,%20deseo%20información%20sobre%20crédito%20de%20vivienda" target="_blank" class="btn btn-success btn-lg w-100 mb-3 py-3 fw-bold rounded-pill shadow-sm transition-all">
+                    <i class="bi bi-whatsapp me-2"></i>Asesoría Inmobiliaria
+                </a>
+
+                <a href="{% url 'home' %}#registro" class="btn btn-outline-dark w-100 py-3 rounded-pill fw-bold">
+                    <i class="bi bi-pencil-square me-2"></i>Pre-aprobado en línea
+                </a>
+
+                <div class="mt-4 pt-3 border-top text-center">
+                    <small class="text-muted">
+                        <i class="bi bi-shield-lock-fill text-success"></i> Trámites 100% seguros y respaldados.
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

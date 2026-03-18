@@ -1,0 +1,152 @@
+{% extends 'web_opcifin/index.html' %}
+{% load static %}
+
+{% block title %}Refinanciamiento y Retanqueos | OPCIFIN{% endblock %}
+
+{% block content %}
+<style>
+    .floating-asset {
+        animation: float 5s ease-in-out infinite;
+        filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.15));
+        max-width: 100%;
+        height: auto;
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-15px); }
+        100% { transform: translateY(0px); }
+    }
+
+    .benefit-icon {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        background: #fff;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+</style>
+
+<div style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{% static "img/retanqueo_banner.jpg" %}') no-repeat center/cover; padding: 120px 0; color: white; text-align: center; border-bottom: 5px solid var(--detalles);">
+    <div class="container" data-aos="zoom-in">
+        <h1 class="display-3 fw-bold">Refinanciamiento <span style="color: var(--detalles);">Inteligente</span></h1>
+        <p class="lead fs-4 fw-light" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.9);">Libera cupo de tus créditos actuales y obtén liquidez inmediata.</p>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row g-5">
+        <div class="col-lg-8">
+            <div data-aos="fade-up">
+                <h2 class="fw-bold mb-4" style="color: var(--encabezado);">¿Necesitas dinero extra sin aumentar tus cuotas?</h2>
+                <p class="fs-5 text-muted">
+                    El refinanciamiento (o retanqueo) es la solución ideal cuando ya has pagado una parte de tu obligación actual. En <strong>OPCIFIN</strong>, gestionamos un nuevo cupo de crédito para que recibas el excedente en efectivo, manteniendo el equilibrio de tus finanzas mensuales.
+                </p>
+            </div>
+
+            <div class="rounded-5 p-4 p-md-5 my-5 shadow-sm"
+                 style="background-color: #f0faff; border: 1px solid #e1f0f7;"
+                 data-aos="fade-up">
+
+                <div class="row align-items-center">
+                    <div class="col-lg-7">
+                        <h3 class="fw-bold mb-4 pb-2" style="color: var(--encabezado); border-bottom: 3px solid var(--detalles); display: inline-block;">
+                            ¿Por qué refinanciar?
+                        </h3>
+
+                        <div class="d-flex align-items-start mb-4">
+                            <div class="benefit-icon me-3">
+                                <i class="bi bi-cash-coin fs-3 text-success"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-1 text-dark">Efectivo para lo que necesites</h6>
+                                <p class="text-muted small mb-0">Recibes el dinero directamente en tu cuenta para inversión, viajes o cubrir imprevistos.</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-start mb-4">
+                            <div class="benefit-icon me-3">
+                                <i class="bi bi-shield-lock fs-3 text-primary"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-1 text-dark">Proceso Ágil y Simplificado</h6>
+                                <p class="text-muted small mb-0">Al ser un cliente con historial, el trámite es mucho más rápido que un crédito nuevo.</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-start">
+                            <div class="benefit-icon me-3">
+                                <i class="bi bi-graph-up-arrow fs-3 text-warning"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-1 text-dark">Mejora de Condiciones</h6>
+                                <p class="text-muted small mb-0">Aprovechamos las mejores tasas del mercado actual para unificar y optimizar tu deuda.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5 d-none d-lg-block text-center" data-aos="fade-up">
+                        <img src="{% static 'img/fondo_retanqueos.png' %}"
+                             alt="Refinanciamiento Opcifin"
+                             class="floating-asset" style="min-width: 280px;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-light border-0 shadow-sm rounded-4 p-4 border-start border-5 border-warning" data-aos="fade-up">
+                <div class="d-flex">
+                    <i class="bi bi-exclamation-triangle-fill text-warning fs-3 me-3"></i>
+                    <div>
+                        <h6 class="fw-bold">Apto para:</h6>
+                        <p class="mb-0 small text-muted">Aplica principalmente para <strong>Pensionados, Docentes y Empleados Públicos</strong> que ya posean una línea de crédito por libranza vigente.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card border-0 bg-dark text-white p-4 shadow-lg sticky-top"
+                 style="top: 130px; border-radius: 25px; z-index: 10;">
+
+                <div class="text-center mb-4">
+                    <div class="bg-light rounded-circle d-inline-flex p-3 mb-3">
+                        <i class="bi bi-arrow-repeat text-dark fs-2"></i>
+                    </div>
+                    <h4 class="fw-bold text-white">¡Refinancia Hoy!</h4>
+                    <p class="text-secondary small">Calculamos tu cupo disponible en minutos con solo tu último desprendible.</p>
+                </div>
+
+                <a href="https://wa.me/573102001662?text=Hola,%20deseo%20consultar%20mi%20cupo%20disponible%20para%20refinanciamiento"
+                   target="_blank" class="btn btn-warning btn-lg w-100 py-3 fw-bold rounded-pill shadow-sm mb-3 border-0 text-dark">
+                    Consultar mi cupo
+                </a>
+
+                <a href="{% url 'home' %}#registro" class="btn btn-outline-light w-100 py-2 rounded-pill small">
+                    Dejar datos de contacto
+                </a>
+
+                <div class="mt-4 pt-3 border-top border-secondary text-center">
+                    <p class="x-small text-secondary mb-0">
+                        <i class="bi bi-lightning-fill text-warning"></i> Desembolsos ágiles.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Mantener consistencia del correo en footer
+    document.addEventListener("DOMContentLoaded", function() {
+        const footer = document.querySelector('footer');
+        if (footer) {
+            footer.innerHTML = footer.innerHTML.replace(/auxiliaropcifin@gmail.com/g, 'atencionalcliente@gmail.com');
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,122 @@
+{% extends 'web_opcifin/index.html' %}
+{% load static %}
+
+{% block title %}Soluciones para Reportados | OPCIFIN{% endblock %}
+
+{% block content %}
+<style>
+    .floating-asset {
+        animation: float 5s ease-in-out infinite;
+        filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.15));
+        max-width: 100%;
+        height: auto;
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-15px); }
+        100% { transform: translateY(0px); }
+    }
+</style>
+
+<div style="background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{% static "img/eliminacion_reportes_banner.jpg" %}') no-repeat center/cover; padding: 110px 0; color: white; text-align: center; border-bottom: 5px solid var(--detalles);">
+    <div class="container" data-aos="zoom-in">
+        <h1 class="display-3 fw-bold">Saneamiento <span style="color: var(--detalles);">Crediticio</span></h1>
+        <p class="lead fs-3 fw-light" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.9);">Tu puente hacia una nueva oportunidad financiera, incluso con reportes.</p>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row g-5">
+        <div class="col-lg-8">
+            <div data-aos="fade-up">
+                <h2 class="fw-bold mb-4" style="color: var(--encabezado);">Gestión y Alternativas para Reportados</h2>
+                <p class="fs-5 text-muted">
+                    Estar reportado no siempre significa que las puertas estén cerradas. En <strong>OPCIFIN</strong> actuamos como mediadores entre tú y nuestras entidades aliadas. Nuestro trabajo es analizar tu historial para encontrar la entidad que mejor se adapte a tu perfil, permitiéndote acceder a crédito mientras saneas tu nombre.
+                </p>
+            </div>
+
+            <div class="row g-4 my-5" data-aos="fade-up">
+                <div class="col-md-6">
+                    <div class="p-4 bg-white border-0 shadow-sm rounded-4 h-100 border-start border-4 border-info">
+                        <i class="bi bi-search fs-1 text-info mb-3 d-block"></i>
+                        <h5 class="fw-bold">Análisis de Perfil</h5>
+                        <p class="small text-muted">Evaluamos si tu reporte es por telefonía, servicios o pequeñas moras, los cuales son aceptados por diversas entidades aliadas.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="p-4 bg-white border-0 shadow-sm rounded-4 h-100 border-start border-4 border-success">
+                        <i class="bi bi-shuffle fs-1 text-success mb-3 d-block"></i>
+                        <h5 class="fw-bold">Entidades Flexibles</h5>
+                        <p class="small text-muted">Contamos con convenios que permiten el acceso a crédito a personas con reportes vigentes bajo condiciones específicas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rounded-5 p-4 p-md-5 mb-5 shadow-sm"
+                 style="background-color: #f0faff; border: 1px solid #e1f0f7;"
+                 data-aos="fade-up">
+
+                <div class="row align-items-center">
+                    <div class="col-lg-7">
+                        <h3 class="fw-bold mb-4 pb-2" style="color: var(--encabezado); border-bottom: 3px solid var(--detalles); display: inline-block;">
+                            Nuestra Estrategia
+                        </h3>
+                        <p class="text-muted small mb-4">No somos una oficina de abogados, somos tus aliados financieros. Nuestro proceso se basa en el conocimiento de las políticas bancarias actuales.</p>
+
+                        <ul class="list-unstyled">
+                            <li class="mb-3 d-flex align-items-start">
+                                <i class="bi bi-check-circle-fill text-primary me-2 mt-1"></i>
+                                <span><strong>Clasificación del reporte:</strong> Identificamos si el reporte es subsanable o si la entidad lo permite.</span>
+                            </li>
+                            <li class="mb-3 d-flex align-items-start">
+                                <i class="bi bi-check-circle-fill text-primary me-2 mt-1"></i>
+                                <span><strong>Intermediación Directa:</strong> Presentamos tu caso ante la entidad financiera con la política de riesgos más flexible.</span>
+                            </li>
+                            <li class="d-flex align-items-start">
+                                <i class="bi bi-check-circle-fill text-primary me-2 mt-1"></i>
+                                <span><strong>Saneamiento Progresivo:</strong> Te ayudamos a obtener el crédito para que, con él, puedas ponerte al día y limpiar tu historial.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-5 d-none d-lg-block text-center" data-aos="fade-up">
+                        <img src="{% static 'img/fondo_reportes.png' %}"
+                             alt="Intermediación financiera Opcifin"
+                             class="floating-asset">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card border-0 bg-dark text-white p-4 shadow-lg sticky-top"
+                 style="top: 130px; border-radius: 25px; z-index: 10;">
+
+                <div class="text-center mb-4">
+                    <div class="bg-primary rounded-circle d-inline-flex p-3 mb-3">
+                        <i class="bi bi-person-check-fill text-white fs-2"></i>
+                    </div>
+                    <h4 class="fw-bold text-white">¿Buscas una oportunidad?</h4>
+                    <p class="text-secondary small">Estudiamos tu caso sin compromiso para decirte en qué entidad tienes viabilidad real.</p>
+                </div>
+
+                <a href="https://wa.me/573102001662?text=Hola,%20tengo%20un%20reporte%20y%20quiero%20saber%20si%20puedo%20acceder%20a%20un%20crédito"
+                   target="_blank" class="btn btn-primary btn-lg w-100 py-3 fw-bold rounded-pill shadow-sm mb-3 border-0">
+                    <i class="bi bi-whatsapp me-2"></i>Consultar Viabilidad
+                </a>
+
+                <a href="{% url 'home' %}#registro" class="btn btn-outline-light w-100 py-2 rounded-pill small">
+                    Solicitar asesoría
+                </a>
+
+                <div class="mt-4 pt-3 border-top border-secondary text-center">
+                    <p class="x-small text-secondary mb-0">
+                        <i class="bi bi-briefcase-fill me-1"></i> Mediación financiera profesional.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

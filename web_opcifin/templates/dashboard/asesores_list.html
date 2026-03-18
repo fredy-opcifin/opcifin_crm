@@ -1,0 +1,156 @@
+{% extends 'dashboard/main.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .asesor-card { border-radius: 20px; border: 1px solid #edf2f7; transition: all 0.3s ease; }
+    .status-dropdown { border: none; background: transparent; font-weight: 600; padding: 0; }
+    .meta-card {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        border-radius: 20px;
+        color: white;
+    }
+    .efectividad-bar { height: 8px; border-radius: 10px; background-color: #e2e8f0; }
+    .avatar-circle {
+        width: 40px; height: 40px;
+        background: #f8fafc;
+        color: #64748b;
+        display: flex; align-items: center; justify-content: center;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+    }
+</style>
+
+<div class="container-fluid p-0">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-0">Equipo de Asesores</h2>
+            <p class="text-muted small">Rendimiento operativo y cumplimiento de metas</p>
+        </div>
+        <button class="btn btn-dark shadow-sm px-4" style="border-radius: 10px;">
+            <i class="fas fa-user-plus me-2"></i> Agregar Miembro
+        </button>
+    </div>
+
+    <div class="row g-4 mb-5">
+        <div class="col-xl-8">
+            <div class="card asesor-card shadow-sm p-4">
+                <h5 class="fw-bold mb-4">Métricas de Desempeño</h5>
+
+                <div class="table-responsive">
+                <table class="table align-middle">
+                    <thead>
+                        <tr class="text-muted small text-uppercase">
+                            <th>Asesor</th>
+                            <th class="text-center">Leads</th>
+                            <th class="text-center">Radicaciones</th>
+                            <th style="width: 200px;">Efectividad</th>
+                            <th>Estatus</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for asesor in equipo %}
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar-circle me-3">
+                                        <i class="fas {% if asesor.cargo == 'Auxiliar' %}fa-hands-helping text-primary{% else %}fa-user-tie{% endif %}"></i>
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold">{{ asesor.nombre }}</div>
+                                        <small class="text-muted">{{ asesor.cargo }}</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-center fw-bold">{{ asesor.total_leads|default:"0" }}</td>
+                            <td class="text-center fw-bold text-primary">{{ asesor.total_radicaciones|default:"0" }}</td>
+                            <td>
+                                {% with porcentaje=asesor.efectividad|default:0 %}
+                                <div class="d-flex align-items-center">
+                                    <span class="me-2 small fw-bold">
+                                        {% if porcentaje %}{{ porcentaje }}{% else %}0{% endif %}%
+                                    </span>
+                                    <div class="progress efectividad-bar w-100">
+                                        <div class="progress-bar
+                                            {% if porcentaje <= 45 %}bg-danger
+                                            {% elif porcentaje <= 75 %}bg-warning
+                                            {% else %}bg-success{% endif %}"
+                                            role="progressbar"
+                                            style="width: {{ porcentaje }}%"
+                                            aria-valuenow="{{ porcentaje }}"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100">
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endwith %}
+                            </td>
+                                <td>
+                                    <select class="form-select form-select-sm status-dropdown
+                                        {% if asesor.estatus == 'Activo' %}text-success
+                                        {% elif asesor.estatus == 'Vacaciones' %}text-warning
+                                        {% else %}text-danger{% endif %}">
+                                        <option value="Activo" {% if asesor.estatus == 'Activo' %}selected{% endif %}>● Activo</option>
+                                        <option value="Inactivo" {% if asesor.estatus == 'Inactivo' %}selected{% endif %}>● Inactivo</option>
+                                        <option value="Vacaciones" {% if asesor.estatus == 'Vacaciones' %}selected{% endif %}>● Vacaciones</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr class="text-center">
+                                <td colspan="5" class="py-4 text-muted small">Cargando datos del equipo...</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4">
+            <div class="card meta-card shadow-sm p-4 h-100">
+                <div class="d-flex justify-content-between align-items-start mb-4">
+                <h5 class="fw-bold mb-0">Meta de Radicaciones</h5>
+                    <i class="fas fa-bullseye opacity-50"></i>
+                </div>
+
+                <div class="text-center py-4">
+                    <h1 class="display-2 fw-bold mb-0">{{ meta_global_actual|default:"0" }}</h1>
+                    <p class="text-uppercase tracking-widest small opacity-75">Radicaciones este mes</p>
+
+                    <div class="mt-4">
+                        <div class="d-flex justify-content-between mb-2 small">
+                            <span>Progreso de meta</span>
+                            <span>{{ meta_global_actual|default:"0" }} / {{ meta_objetivo|default:"50" }}</span>
+                        </div>
+                        <div class="progress bg-dark" style="height: 12px; border-radius: 10px;">
+                            <div class="progress-bar bg-info progress-bar-striped progress-bar-animated"
+                                role="progressbar"
+                                style="width: {% widthratio meta_global_actual meta_objetivo 100 %}%">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+        </div>
+
+                <div class="mt-auto pt-4">
+                    <div class="p-3 bg-white bg-opacity-10 rounded-3">
+                        <div class="d-flex justify-content-between small">
+                            <span class="opacity-75">Días de gestión:</span>
+                            <span class="fw-bold">12 restantes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end p-3">
+        <div class="text-end">
+            <p class="mb-0"><strong>Kelly Torres</strong></p>
+            <p class="text-muted small mb-0">Coordinadora de OPCIFIN</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

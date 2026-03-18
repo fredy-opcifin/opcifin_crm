@@ -4,172 +4,479 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OPCIFIN - Opciones Financieras & Servicios</title>
-    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
+    <title>{% block title %}OPCIFIN - Opciones Financieras & Servicios{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; color: #333; scroll-behavior: smooth; }
-        
-        /* BARRA DE NAVEGACIÓN TURQUESA */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 5%;
-            background: #038692; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .nav-links { display: flex; gap: 25px; list-style: none; }
-        .nav-links a { 
-            text-decoration: none; 
-            color: #ffffff; 
-            font-weight: 600; 
-            font-size: 0.9em; 
-            transition: 0.3s;
-        }
-        .nav-links a:hover { color: #D4AF37; }
-
-        /* HERO SECTION */
-        .hero {
-            background: linear-gradient(rgba(0, 26, 51, 0.7), rgba(0, 26, 51, 0.7)), url('{% static 'img/banner_principal.jpg' %}') no-repeat center/cover;
-            color: white;
-            padding: 100px 5%;
-            text-align: center;
+        :root {
+            --encabezado: #038692;
+            --detalles: #D4AF37;
+            --fondo: #FFFFFF;
+            --footer-bg: #001A33;
         }
 
-        /* ESTILOS DEL CARRUSEL AUTOMÁTICO */
-        .swiper {
-            width: 100%;
-            max-width: 1100px;
-            height: 450px; /* Altura del carrusel */
-            margin: 40px auto;
-            border-radius: 15px;
+        body { background-color: var(--fondo); font-family: 'Segoe UI', sans-serif; overflow-x: hidden; }
+
+        /* NAVBAR */
+        .navbar { background-color: var(--encabezado) !important; padding: 10px 0; border-bottom: 4px solid var(--detalles); }
+        .nav-link { color: #FFFFFF !important; font-weight: bold; text-transform: uppercase; font-size: 0.85rem; }
+        .navbar-brand strong { color: var(--detalles) !important; transition: 0.3s; }
+
+        /* MEGA MENÚ */
+        .nav-item.dropdown:hover .mega-menu { display: block; }
+        .mega-menu {
+            display: none; position: absolute; width: 100vw; left: 0; padding: 30px;
+            background: white; border-top: 5px solid var(--detalles);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2); z-index: 1050;
         }
 
-        .swiper-slide {
-            background: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+        /* BANNER HERO */
+        .hero-banner {
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('{% static "img/banner_principal.jpg" %}');
+            background-size: cover; background-position: center; height: 75vh;
+            display: flex; align-items: center; color: white;
+        }
+        .hero-title { font-size: 3.5rem; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+
+        /* BOTONES */
+        .btn-opcifin {
+            background-color: var(--detalles); color: #000;
+            border-radius: 5px; padding: 12px 30px; font-weight: 700;
+            text-transform: uppercase; border: none; transition: 0.3s;
+            text-decoration: none; display: inline-block;
+        }
+        .btn-opcifin:hover { background-color: #bfa030; transform: translateY(-2px); color: #000; }
+
+        /* WHATSAPP FLOTANTE */
+        .whatsapp-float {
+            position: fixed; width: 55px; height: 55px; bottom: 30px; right: 30px;
+            background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center;
+            font-size: 25px; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); z-index: 1000;
+            display: flex; align-items: center; justify-content: center; text-decoration: none;
         }
 
-        .swiper-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* Evita que la imagen se estire o se aplaste */
-            background-color: #f9fbfd;
-        }
-
-        /* Color de las flechas del carrusel */
-        .swiper-button-next, .swiper-button-prev { color: #038692; }
-        .swiper-pagination-bullet-active { background: #038692; }
-
-        .btn-gold {
-            background: #D4AF37;
-            color: white;
-            padding: 18px 40px;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 5px;
-            display: inline-block;
-            margin-top: 20px;
-            transition: 0.3s;
-        }
-
-        footer {
-            background: #001A33;
-            color: white;
-            padding: 50px 5% 20px;
-        }
+        footer { background-color: var(--footer-bg); color: #FFFFFF; padding: 50px 0 20px; }
+        .footer-title { color: var(--detalles); font-weight: 700; margin-bottom: 15px; }
+        .address-link:hover { color: var(--detalles) !important; }
+        .star-rating i { cursor: pointer; font-size: 1.5rem; transition: 0.2s; }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo-container">
-            <a href="/">
-                <img src="{% static 'img/logo_opcifin.png' %}" alt="OPCIFIN Logo" 
-                     style="height: 80px; width: auto; display: block; object-fit: contain;">
-            </a>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}"><strong>OPCIFIN</strong></a>
+            <div class="ms-auto d-flex align-items-center order-lg-last">
+                <button class="btn text-white border-0 p-2" type="button" data-bs-toggle="collapse" data-bs-target="#searchBar">
+                    <i class="bi bi-search fs-5"></i>
+                </button>
+                <button class="navbar-toggler ms-2 text-white border-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <i class="bi bi-list fs-1"></i>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Inicio</a></li>
+                    <li class="nav-item dropdown position-static">
+                        <a class="nav-link dropdown-toggle" href="#">Servicios</a>
+                        <div class="dropdown-menu mega-menu">
+                            <div class="container">
+                                <div class="row text-dark">
+                                    <div class="col-md-4">
+                                        <h6 class="fw-bold" style="color: var(--encabezado)">Líneas de Crédito</h6>
+                                        <hr>
+                                        <a class="dropdown-item py-1" href="{% url 'libranza' %}">Crédito por Libranza</a>
+                                        <a class="dropdown-item py-1" href="{% url 'hipotecario' %}">Crédito Hipotecario</a>
+                                        <a class="dropdown-item py-1" href="{% url 'prestamos_personales' %}">Préstamos Personales</a>
+                                    </div>
+                                    <div class="col-md-4 border-start">
+                                        <h6 class="fw-bold" style="color: var(--encabezado)">Otros Servicios (Valledupar)</h6>
+                                        <hr>
+                                        <a class="dropdown-item py-1" href="{% url 'compra_cartera' %}">Compra de Cartera</a>
+                                        <a class="dropdown-item py-1" href="{% url 'hipotecas' %}">Hipotecas</a>
+                                        <a class="dropdown-item py-1" href="{% url 'eliminacion_reportes' %}">Eliminación de Reportes</a>
+                                        <a class="dropdown-item py-1" href="{% url 'retanqueos' %}">Refinanciación</a>
+                                    </div>
+                                    <div class="col-md-4 border-start">
+                                        <h6 class="fw-bold" style="color: var(--encabezado)">Convenios</h6>
+                                        <hr>
+                                        <a href="{% url 'convenios' %}" class="fw-bold text-decoration-none">Conoce a nuestros aliados financieros <i class="bi bi-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'nosotros' %}">Nosotros</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'atencion_cliente' %}">Atención al Cliente</a></li>
+                </ul>
+            </div>
         </div>
-        <ul class="nav-links">
-            <li><a href="/">INICIO</a></li>
-            <li><a href="/servicios/">SERVICIOS</a></li>
-            <li><a href="/nosotros/">NOSOTROS</a></li>
-            <li><a href="/contacto/">CONTACTO</a></li>
-        </ul>
     </nav>
 
+    <div class="collapse" id="searchBar" style="background: var(--encabezado); border-bottom: 2px solid var(--detalles);">
+        <div class="container py-3">
+            <form class="d-flex" onsubmit="return ejecutarBusqueda();">
+                <input class="form-control me-2 rounded-pill" type="search" id="searchInput" placeholder="Buscar crédito, reportes...">
+                <button class="btn btn-outline-light rounded-pill" type="submit"><i class="bi bi-search"></i></button>
+            </form>
+        </div>
+    </div>
+
+    {% block content %}
+    <header class="hero-banner">
+        <div class="container">
+            <h1 class="hero-title">Ayudamos a Construir <br><span style="color: var(--detalles)">Tus Sueños</span></h1>
+            <p class="lead mb-4 fw-bold">Soluciones de crédito ágiles y transparentes.</p>
+            <a href="#registro" class="btn btn-opcifin">Iniciar mi estudio</a>
+        </div>
+    </header>
+
     <main>
-        <section class="hero">
-            <h1 style="font-size: 3em; color: #D4AF37; margin-bottom: 15px;">Más de 10 años construyendo <br>tu futuro financiero</h1>
-            <a href="/registro/" class="btn-gold">INICIAR MI ESTUDIO</a>
-        </section>
-
-        <section id="servicios-inicio" style="padding: 60px 5%; background-color: #f9fbfd;">
-            <h2 style="text-align: center; color: #001A33; font-size: 2.2em; margin-bottom: 10px;">Nuestras Líneas de Crédito</h2>
-            
-            <div class="swiper mySwiper">
-                <div class="swiper-wrapper">
-                    {% for item in multimedia %}
-                    <div class="swiper-slide">
-                        {% if item.imagen %}
-                        <img src="{{ item.imagen.url }}" alt="{{ item.titulo }}">
-                        <div style="padding: 15px; color: #001A33; font-weight: bold;">{{ item.titulo }}</div>
-                        {% endif %}
-                    </div>
-                    {% empty %}
-                    <div class="swiper-slide">
-                        <p>No hay imágenes cargadas.</p>
-                    </div>
-                    {% endfor %}
+        <section class="py-5">
+            <div class="container">
+                <div class="text-center mb-5" data-aos="fade-up">
+                    <h2 class="fw-bold display-5" style="color: var(--encabezado)">Nuestros Servicios</h2>
+                    <p class="lead fw-bold text-primary mb-2">Tu Puente hacia la Mejor Opción Financiera.</p>
+                    <p class="text-muted fs-5 px-md-5">En <strong>OPCIFIN</strong>, no solo gestionamos créditos; somos tu aliado estratégico. Gracias a nuestro modelo de <strong>outsourcing financiero</strong>, analizamos las políticas vigentes de múltiples entidades bancarias y cooperativas para conectarte con la opción que realmente favorezca tu bolsillo, garantizando agilidad y una mayor probabilidad de aprobación sin costos adicionales de gestión.</p>
                 </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-pagination"></div>
+
+                <div class="row align-items-center mb-5" data-aos="fade-right">
+                    <div class="col-md-6 mb-4 mb-md-0">
+                        <div class="pe-md-5">
+                            <i class="bi bi-wallet2 fs-1 text-primary mb-3"></i>
+                            <h3 class="fw-bold">Líneas de Crédito</h3>
+                            <p class="lead text-muted">Gestionamos tu crédito por libranza comparando las mejores tasas de nuestros aliados financieros.</p>
+                            <a href="{% url 'hub_creditos' %}" class="btn btn-outline-primary rounded-pill px-4">Ver más</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="{% static 'img/lineas_credito.jpg' %}" class="img-fluid rounded-4 shadow-lg">
+                    </div>
+                </div>
+
+                <div class="row align-items-center flex-row-reverse mb-5" data-aos="fade-left">
+                    <div class="col-md-6 mb-4 mb-md-0">
+                        <div class="ps-md-5">
+                            <i class="bi bi-shield-check fs-1 text-success mb-3"></i>
+                            <h3 class="fw-bold">Gestión Especializada</h3>
+                            <p class="lead text-muted">Eliminación de reportes negativos y trámites notariales directamente en Valledupar.</p>
+                            <a href="{% url 'hub_servicios' %}" class="btn btn-outline-success rounded-pill px-4">Ver detalles</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="{% static 'img/otros_servicios.jpg' %}" class="img-fluid rounded-4 shadow-lg">
+                    </div>
+                </div>
+                <div class="row align-items-center mb-5" data-aos="fade-right">
+                    <div class="col-md-6 mb-4 mb-md-0">
+                        <div class="pe-md-5">
+                            <i class="bi bi-wallet2 fs-1 text-primary mb-3"></i>
+                            <h3 class="fw-bold">Convenios Estratégicos</h3>
+                            <p class="lead text-muted">Alianzas con las pagadurías más importantes del país para créditos rápidos.</p>
+                            <a href="{% url 'convenios' %}" class="btn btn-outline-warning rounded-pill px-4">Ver Aliados</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="{% static 'img/aliados.jpg' %}" alt="Convenios OPCIFIN" class="img-fluid rounded-4 shadow-lg">
+                    </div>
+                </div>
             </div>
-            
-            <p style="text-align: center;"><a href="/servicios/" style="color: #038692; font-weight: bold;">Ver todos los detalles de servicios →</a></p>
         </section>
 
-        <section id="nosotros-breve" style="padding: 80px 5%; text-align: center; background: white;">
-            <h2 style="color: #001A33; font-size: 2em;">Tu aliado de confianza</h2>
-            <p style="max-width: 800px; margin: 20px auto; color: #666; line-height: 1.8;">
-                En OPCIFIN te ofrecemos procesos 100% digitales y físicos. Respuesta inmediata para pensionados, docentes y fuerzas militares.
-            </p>
-            <a href="/nosotros/" style="color: #D4AF37; text-decoration: none; font-weight: bold;">Conoce nuestra historia →</a>
+        <section id="registro" class="py-5" style="background-color: #f4f7f6;">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-11 shadow-lg rounded-4 overflow-hidden bg-white">
+                        <div class="row">
+                            <div class="col-md-5 p-5 text-white d-flex flex-column justify-content-center" style="background-color: var(--encabezado);">
+                                <h2 class="fw-bold mb-3">¿Listo para empezar?</h2>
+                                <p>Déjanos tus datos y un asesor experto realizará tu estudio de viabilidad sin costo en tiempo récord.</p>
+                                <ul class="list-unstyled mt-4">
+                                    <li class="mb-3"><i class="bi bi-check-circle-fill me-2 text-warning"></i> Sin costos ocultos</li>
+                                    <li class="mb-3"><i class="bi bi-check-circle-fill me-2 text-warning"></i> Reportados bienvenidos</li>
+                                    <li class="mb-3"><i class="bi bi-check-circle-fill me-2 text-warning"></i> Respuesta en 24h</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-7 p-5">
+                                <form action="{% url 'contactanos' %}" method="POST" id="mainContactForm" class="p-4 bg-white rounded shadow-sm">
+                                    {% csrf_token %}
+                                    <h5 class="mb-3 text-muted border-bottom pb-2">Completa el formulario y un asesor te contactará</h5>
+
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Nombre completo *</label>
+                                            <input type="text" name="nombre" class="form-control" placeholder="Tu nombre" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Cédula</label>
+                                            <input type="text" name="cedula" class="form-control" placeholder="1.234.567.890">
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Celular *</label>
+                                            <input type="tel" name="telefono" class="form-control" placeholder="300 123 4567" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Correo electrónico</label>
+                                            <input type="email" name="correo" class="form-control" placeholder="correo@ejemplo.com">
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label class="form-label small fw-bold">¿Cuál es su perfil laboral? *</label>
+                                            <select name="ocupacion" class="form-select" required>
+                                                <option value="" selected disabled>Selecciona tu perfil...</option>
+                                                <option value="Docente">Docente</option>
+                                                <option value="Pensionado">Pensionado</option>
+                                                <option value="Servidor Público">Servidor Público</option>
+                                                <option value="Fuerzas Armadas">Fuerzas Armadas y/o Policía</option>
+                                                <option value="Independiente">Persona Independiente</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Ciudad</label>
+                                            <input type="text" name="ciudad" placeholder="¿En qué ciudad vives?">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Departamento</label>
+                                            <input type="text" name="departamento" class="form-control" placeholder="Tu departamento">
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Entidad pagadora</label>
+                                            <input type="text" name="entidad" class="form-control" placeholder="Secretaría, Colpensiones...">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Ingreso mensual</label>
+                                            <input type="text" name="ingresos" class="form-control" placeholder="3.500.000">
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label class="form-label small fw-bold">¿Cuánto necesitas?</label>
+                                            <input type="text" name="monto_interes" class="form-control" placeholder="20.000.000">
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label class="form-label small fw-bold">Información adicional</label>
+                                            <textarea name="mensaje" class="form-control" rows="3" placeholder="¿Algo más que debamos saber?"></textarea>
+                                        </div>
+
+                                        <div class="col-12 mt-4 text-center">
+                                            <button type="submit" class="btn w-100 py-3 fw-bold shadow-sm" style="background-color: #f1c40f; color: #000; border: none;">
+                                                <i class="fas fa-paper-plane me-2"></i> Enviar Solicitud
+                                            </button>
+                                            <p class="text-muted mt-3" style="font-size: 0.8rem;">
+                                                Al enviar, aceptas que un asesor te contacte. Tu información está protegida.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <script>
+                                    function actualizarFormularioPrincipal() {
+                                        const servicio = document.getElementById('mainSelectServicio').value;
+                                        const label = document.getElementById('label_main_extra');
+                                        const input = document.getElementById('input_main_extra');
+
+                                    if (servicio === 'Adelanto de Prima') {
+                                            label.innerText = "¿Cuántas primas deseas adelantar?";
+                                            label.className = "form-label fw-bold text-warning";
+                                            input.placeholder = "Indica los periodos (Ej: 2025 y 2026)...";
+                                        }
+                                    else if (servicio === 'Compra de Cartera') {
+                                            label.innerText = "¿Cuál es el valor total de tus deudas?";
+                                            label.className = "form-label fw-bold text-success";
+                                            input.placeholder = "Suma tus deudas actuales y pon el total aquí...";
+                                        }
+                                    else if (servicio === 'Eliminación de Reportes') {
+                                            label.innerText = "¿En qué central estás reportado?";
+                                            label.className = "form-label fw-bold text-danger";
+                                            input.placeholder = "Ej: Datacrédito, Cifin...";
+                                        }
+                                    else if (servicio === 'Otro') {
+                                            label.innerText = "¿Qué servicio necesitas?";
+                                            label.className = "form-label fw-bold text-secondary";
+                                            input.placeholder = "Cuéntanos brevemente qué necesitas para asesorarte...";
+                                        }
+                                    else {
+                                            label.innerText = "¿En qué entidad laboras o eres pensionado?";
+                                            label.className = "form-label fw-bold text-primary";
+                                            input.placeholder = "Ej: Colpensiones, Casur, Fomag...";
+                                        }
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
+    {% endblock %}
 
-    <footer>
-        <div style="text-align: center; padding-bottom: 20px;">
-            <h4 style="color: #D4AF37;">OPCIFIN - Valledupar, Cesar</h4>
-            <p>&copy; 2025 Todos los derechos reservados.</p>
+    <footer class="text-white py-5" style="background-color: #003344; border-top: 1px solid rgba(255,255,255,0.1);">
+    <div class="container">
+        <div class="row g-4 align-items-start">
+
+            <div class="col-lg-4">
+                <h5 class="fw-bold mb-3" style="color: var(--detalles);">OPCIFIN</h5>
+                <p class="small text-light-50">Excelencia financiera en Valledupar para todo el país. Comprometidos con tus metas.</p>
+                <div class="d-flex gap-3 fs-5 mt-3">
+                    <a href="https://www.facebook.com/profile.php?id=100068963619009&sk=about" class="text-white hover-detalles"><i class="bi bi-facebook"></i></a>
+                    <a href="https://www.instagram.com/opcionesfinancieras_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="text-white hover-detalles"><i class="bi bi-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@opcifin" class="text-white hover-detalles"><i class="bi bi-tiktok"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <h5 class="fw-bold mb-3">Ubicación y Contacto</h5>
+                <ul class="list-unstyled small">
+                    <li class="mb-2"><i class="bi bi-geo-alt-fill me-2" style="color: var(--detalles);"></i> Calle 15 #14-35, Edificio Gran Colombiana, Valledupar</li>
+                    <li class="mb-2"><i class="bi bi-envelope-fill me-2"></i> opcionesfinancierasintegrales@gmail.com</li>
+                    <li><i class="bi bi-envelope-check-fill me-2"></i> atencionalclienteopcifin@gmail.com</li>
+                </ul>
+            </div>
+
+            <div class="col-lg-4 text-center text-lg-start">
+                <h5 class="fw-bold mb-2 small text-uppercase" style="letter-spacing: 1px;">Danos tu opinión</h5>
+
+                <div id="seccion-calificacion">
+                    <div id="contenedor-estrellas" class="mb-2" style="font-size: 1.5rem; color: #ffc107;">
+                        <span class="star" data-value="1" style="cursor:pointer;">☆</span>
+                        <span class="star" data-value="2" style="cursor:pointer;">☆</span>
+                        <span class="star" data-value="3" style="cursor:pointer;">☆</span>
+                        <span class="star" data-value="4" style="cursor:pointer;">☆</span>
+                        <span class="star" data-value="5" style="cursor:pointer;">☆</span>
+                    </div>
+
+                    <div class="input-group input-group-sm mb-2">
+                        <input type="text" id="campo-comentario" class="form-control bg-transparent text-white border-secondary" placeholder="Escribe un comentario..." style="font-size: 0.8rem;">
+                        <button class="btn btn-outline-light btn-sm" type="button" id="btn-enviar-resena" onclick="enviarResena()">Enviar</button>
+                    </div>
+
+                    <div id="mensaje-agradecimiento" class="d-none animate__animated animate__fadeIn">
+                        <small class="text-success fw-bold">¡Gracias por tu comentario! Tu opinión es muy importante para nosotros</small>
+                    </div>
+                </div>
+            </div>
         </div>
-    </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <hr class="my-4 opacity-25">
+
+        <div class="text-center small opacity-50">
+            <p class="mb-0">© 2026 OPCIFIN - Todos los derechos reservados.</p>
+        </div>
+    </div>
+</footer>
+
+<style>
+    /* Estilos para que el footer se vea Pro */
+    .hover-detalles:hover { color: var(--detalles) !important; }
+
+    #campo-comentario::placeholder { color: rgba(255,255,255,0.4); }
+
+    #campo-comentario:focus {
+        background-color: rgba(255,255,255,0.05);
+        border-color: var(--detalles);
+        box-shadow: none;
+        color: white;
+    }
+</style>
+
+    <a href="#" id="btn-whatsapp" class="whatsapp-float" target="_blank"><i class="bi bi-whatsapp"></i></a>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        var swiper = new Swiper(".mySwiper", {
-            loop: true,
-            autoplay: {
-                delay: 3000, // Se mueve solo cada 3 segundos
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
+        // AOS Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({ duration: 1000, once: false, mirror: true });
         });
+
+        // WhatsApp Aleatorio
+        const asesores = [
+            { nombre: "Fredy Díaz", numero: "573102001662" },
+            { nombre: "Estefany Ortiz", numero: "573023452956" },
+            { nombre: "Marta Arevalo", numero: "573180178162" },
+            { nombre: "Laura Vergara", numero: "573103509119" },
+            { nombre: "Heday Martínez", numero: "573103946110" }
+        ];
+        function asignarAsesor() {
+            const elegido = asesores[Math.floor(Math.random() * asesores.length)];
+            const texto = encodeURIComponent(`Hola, vengo de la web de OPCIFIN y deseo recibir asesoría con el asesor(a) ${elegido.nombre}.`);
+            const btn = document.getElementById('btn-whatsapp');
+            if(btn) btn.href = `https://wa.me/${elegido.numero}?text=${texto}`;
+        }
+        window.onload = asignarAsesor;
+
+        // Estrellas
+        document.querySelectorAll('.star').forEach(star => {
+            star.addEventListener('click', function() {
+                let valor = this.dataset.value;
+                let estrellas = document.querySelectorAll('.star');
+
+                // Pintar las estrellas hasta la seleccionada
+                estrellas.forEach((s, index) => {
+                    if (index < valor) {
+                        s.innerText = '★'; // Llena
+                    } else {
+                        s.innerText = '☆'; // Vacía
+                    }
+                });
+
+                document.getElementById('contenedor-estrellas').style.pointerEvents = 'none';
+                window.calificacionSeleccionada = valor;
+            });
+        });
+
+        function enviarResena() {
+            let comentario = document.getElementById('campo-comentario');
+            let boton = document.getElementById('btn-enviar-resena');
+            let mensajeExito = document.getElementById('mensaje-agradecimiento');
+
+            let datos = {
+                'puntuacion': window.calificacionSeleccionada,
+                'comentario': comentario.value
+            };
+
+            // Enviamos a Django vía Fetch
+            fetch('/guardar-resena/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify(datos)
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Inhabilitar campo y mostrar mensaje
+                    comentario.disabled = true;
+                    boton.style.display = 'none';
+                    mensajeExito.innerText = "¡Gracias por darnos tu opinión!";
+                    mensajeExito.classList.remove('d-none');
+                }
+            });
+        }
+
+        // Búsqueda
+        function ejecutarBusqueda() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const rutas = { "libranza": "{% url 'libranza' %}", "vivienda": "{% url 'hipotecario' %}", "reporte": "{% url 'eliminacion_reportes' %}" };
+            if (rutas[query]) window.location.href = rutas[query];
+            else alert("Intenta con: libranza, vivienda o reporte");
+            return false;
+        }
     </script>
 </body>
 </html>

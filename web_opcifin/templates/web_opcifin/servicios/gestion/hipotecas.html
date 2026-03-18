@@ -1,0 +1,184 @@
+{% extends 'web_opcifin/index.html' %}
+{% load static %}
+
+{% block title %}Hipotecas y Préstamos sobre Propiedad | OPCIFIN{% endblock %}
+
+{% block content %}
+<style>
+    /* Efecto de flotación para la imagen */
+    .floating-asset {
+        animation: float 5s ease-in-out infinite;
+        filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.15));
+        max-width: 100%;
+        height: auto;
+        border-radius: 20px;
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+        100% { transform: translateY(0px); }
+    }
+
+    /* Mejora de los iconos de beneficios */
+    .benefit-item {
+        transition: all 0.3s ease;
+        border: 1px solid #eee;
+    }
+    .benefit-item:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.08) !important;
+        border-color: var(--detalles);
+    }
+</style>
+
+<div style="background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{% static "img/hipoteca_banner.jpg" %}') no-repeat center/cover; padding: 120px 0; color: white; text-align: center; border-bottom: 5px solid var(--detalles);">
+    <div class="container" data-aos="zoom-in" data-aos-duration="1000">
+        <h1 class="display-3 fw-bold text-uppercase">Hipotecas <span style="color: var(--detalles);">Seguras</span></h1>
+        <p class="lead fs-3 fw-light" style="text-shadow: 2px 2px 10px rgba(0,0,0,0.5);">Tu propiedad es la llave para la liquidez que necesitas hoy mismo.</p>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row g-5">
+        <div class="col-lg-8">
+
+            <div data-aos="fade-right" data-aos-delay="200">
+                <h2 class="fw-bold mb-4" style="color: var(--encabezado);">Soluciones Financieras con Garantía Real</h2>
+                <p class="fs-5 text-muted">
+                    Entendemos que a veces las oportunidades no esperan a los tiempos de la banca tradicional. Si eres propietario de un inmueble en <strong>Valledupar o el departamento del Cesar</strong>, puedes acceder a recursos inmediatos para capital de trabajo, inversión o libre inversión sin procesos burocráticos interminables.
+                </p>
+            </div>
+
+            <div class="row g-4 my-5">
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="p-4 bg-white rounded-4 benefit-item h-100 shadow-sm">
+                        <i class="bi bi-lightning-charge-fill text-warning fs-1 mb-3 d-block"></i>
+                        <h5 class="fw-bold">Aprobación Ágil</h5>
+                        <p class="small text-muted mb-0">Respuesta inicial en menos de 48 horas tras la entrega de documentos básicos.</p>
+                    </div>
+                </div>
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="p-4 bg-white rounded-4 benefit-item h-100 shadow-sm">
+                        <i class="bi bi-shield-check text-success fs-1 mb-3 d-block"></i>
+                        <h5 class="fw-bold">Seguridad Jurídica</h5>
+                        <p class="small text-muted mb-0">Todos nuestros procesos se formalizan mediante escritura pública ante notaría.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rounded-5 p-4 p-md-5 mb-5 shadow-sm" style="background-color: #f0faff; border: 1px solid #e1f0f7;" data-aos="fade-up" data-aos-duration="300">
+                <div class="row align-items-center">
+                    <div class="col-md-7">
+                        <h3 class="fw-bold mb-4" style="color: var(--encabezado); border-bottom: 3px solid var(--detalles); display: inline-block;">¿Cómo funciona el proceso?</h3>
+                        <p class="text-muted">Gestionar tu hipoteca con nosotros es transparente y sencillo. Evaluamos el potencial de tu inmueble para ofrecerte el mejor cupo.</p>
+
+                        <div class="accordion shadow-sm rounded-4 overflow-hidden border-0" id="accHipoteca">
+                            <div class="accordion-item border-0 mb-2 rounded-4">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button fw-bold text-dark bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#step1">
+                                        1. Estudio de Títulos y Avalúo
+                                    </button>
+                                </h2>
+                                <div id="step1" class="accordion-collapse collapse show" data-bs-parent="#accHipoteca">
+                                    <div class="accordion-body bg-white text-muted small">
+                                        Verificamos que la propiedad esté libre de gravámenes y realizamos una visita técnica para determinar su valor comercial real.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item border-0 mb-2 rounded-4">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed fw-bold text-dark bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#step2">
+                                        2. Estructuración del Crédito
+                                    </button>
+                                </h2>
+                                <div id="step2" class="accordion-collapse collapse" data-bs-parent="#accHipoteca">
+                                    <div class="accordion-body bg-white text-muted small">
+                                        Definimos el monto (hasta el 50% del valor comercial), la tasa de interés fija y el plazo que mejor se adapte a tu flujo de caja.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item border-0 rounded-4">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed fw-bold text-dark bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#step3">
+                                        3. Desembolso y Notaría
+                                    </button>
+                                </h2>
+                                <div id="step3" class="accordion-collapse collapse" data-bs-parent="#accHipoteca">
+                                    <div class="accordion-body bg-white text-muted small">
+                                        Una vez firmada la escritura y registrada la hipoteca, recibes los fondos de manera segura en tu cuenta bancaria.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5 d-none d-md-block text-center px-4" data-aos="zoom-in-left" data-aos-delay="300">
+                        <img src="{% static 'img/fondo_hipotek.png' %}" class="floating-asset" alt="Hipotecas Opcifin" style="min-width: 320px;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-light border-0 shadow-sm rounded-4 p-4 border-start border-5 border-info" data-aos="fade-up">
+                <p class="mb-0 small text-muted">
+                    <i class="bi bi-info-circle-fill text-info me-2"></i>
+                    <strong>Nota:</strong> Los préstamos sobre hipoteca están sujetos a la ubicación del inmueble y su estado físico. No aplica para viviendas con procesos de embargo activos.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card border-0 bg-dark text-white p-4 shadow-lg sticky-top"
+                style="top: 130px; border-radius: 25px; z-index: 10; margin-bottom: 2rem;"
+                data-aos="fade-left"
+                data-aos-delay="400">
+
+                <div class="text-center mb-4">
+                    <div class="bg-warning rounded-circle d-inline-flex p-3 mb-3 shadow-sm">
+                        <i class="bi bi-file-earmark-ruled text-dark fs-2"></i>
+                    </div>
+                    <h4 class="fw-bold text-warning">Requisitos Base</h4>
+                    <p class="text-secondary small">Documentación necesaria para iniciar el estudio hoy mismo.</p>
+                </div>
+
+                <ul class="list-unstyled mb-4">
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="bi bi-check2-circle text-warning me-3 fs-5"></i>
+                        <span>Certificado de Libertad (Vigente)</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="bi bi-check2-circle text-warning me-3 fs-5"></i>
+                        <span>Paz y Salvo Predial 2026</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="bi bi-check2-circle text-warning me-3 fs-5"></i>
+                        <span>Copia de la última Escritura</span>
+                    </li>
+                    <li class="mb-0 d-flex align-items-center">
+                        <i class="bi bi-check2-circle text-warning me-3 fs-5"></i>
+                        <span>Cédula de los propietarios</span>
+                    </li>
+                </ul>
+
+                <hr class="border-secondary my-4 opacity-25">
+
+                <a href="https://wa.me/573102001662?text=Hola,%20deseo%20agendar%20una%20visita%20para%20estudio%20de%20hipoteca"
+                    target="_blank"
+                    class="btn btn-warning btn-lg w-100 py-3 fw-bold rounded-pill shadow-sm mb-3 border-0">
+                    <i class="bi bi-whatsapp me-2"></i>Agendar Avalúo
+                </a>
+
+                <a href="{% url 'home' %}#registro" class="btn btn-outline-light w-100 py-3 fw-bold rounded-pill">
+                    <i class="bi bi-pencil-square me-2"></i>Dejar mis datos
+                </a>
+
+                <div class="mt-4 text-center">
+                    <p class="x-small text-secondary mb-0 opacity-75">
+                        <i class="bi bi-lock-fill me-1"></i> Trámite 100% confidencial
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

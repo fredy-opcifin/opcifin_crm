@@ -1,0 +1,182 @@
+{% extends 'dashboard/main.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .filter-card { border-radius: 12px; background: #fff; border: 1px solid #edf2f7; }
+    .stat-card { border-radius: 16px; transition: transform 0.3s ease; }
+    .stat-card:hover { transform: translateY(-5px); }
+    .table-container { border-radius: 15px; overflow: hidden; background: white; border: 1px solid #edf2f7; }
+    .badge-status { font-weight: 600; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; }
+
+    /* Colores para los estados */
+    .status-documentacion { background: #fef3c7; color: #92400e; }
+    .status-radicado { background: #e0f2fe; color: #075985; }
+    .status-estudio { background: #e0e7ff; color: #3730a3; }
+    .status-aprobado { background: #dcfce7; color: #166534; }
+    .status-desembolsado { background: #f0fdf4; color: #14532d; border: 1px solid #166534; }
+    .status-rechazado { background: #fee2e2; color: #991b1b; }
+</style>
+
+<div class="container-fluid p-0">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-0">Gestión de Radicaciones</h2>
+            <p class="text-muted small">Seguimiento de procesos en bancos y entidades</p>
+        </div>
+        <div class="d-flex gap-2">
+            <button class="btn btn-light border" style="border-radius: 10px;">
+                <i class="fas fa-file-export me-2 text-muted"></i> Exportar
+            </button>
+            <a href="{% url 'leads_list' %}" class="btn btn-primary" style="border-radius: 10px; display: inline-flex; align-items: center;">
+                <i class="fas fa-plus me-2"></i> Nueva Radicación
+            </a>
+        </div>
+    </div>
+    <div class="row g-4 mb-4">
+        <div class="col-md-4">
+            <div class="card stat-card border-0 shadow-sm p-3 bg-primary text-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <small class="text-uppercase fw-bold opacity-75">En Estudio</small>
+                        <h3 class="fw-bold mb-0">{{ estudio_count }}</h3>
+                    </div>
+                    <i class="fas fa-microscope fa-2x opacity-25"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card stat-card border-0 shadow-sm p-3 bg-success text-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <small class="text-uppercase fw-bold opacity-75">Aprobados</small>
+                        <h2 class="fw-bold mb-0">{{ radicaciones_aprobadas_count|default:"0" }}</h2>
+                    </div>
+                    <i class="fas fa-check-double fa-2x opacity-25"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card stat-card border-0 shadow-sm p-3 bg-dark text-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <small class="text-uppercase fw-bold opacity-75">Desembolsos (Mes)</small>
+                        <h2 class="fw-bold mb-0">{{ radicaciones_mes_count|default:"0" }}</h2>
+                    </div>
+                    <i class="fas fa-hand-holding-usd fa-2x opacity-25"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="filter-card p-3 mb-4 shadow-sm">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0"><i class="fas fa-search text-muted"></i></span>
+                    <input type="text" class="form-control border-start-0" placeholder="Buscar cliente o entidad...">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <select class="form-select border-light-subtle">
+                    <option selected>Todos los estados</option>
+                    <option>Documentación</option>
+                    <option>Radicado</option>
+                    <option>En Estudio</option>
+                    <option>Aprobado</option>
+                    <option>Desembolsado</option>
+                    <option>Rechazado</option>
+                    <option>Contactado</option>
+                    <option>Nueva</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-outline-primary w-100">Filtrar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-container shadow-sm">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th class="ps-4" style="font-size: 0.85rem;">CLIENTE</th>
+                        <th style="font-size: 0.85rem;">BANCO / ENTIDAD</th>
+                        <th style="font-size: 0.85rem;">MONTO</th>
+                        <th style="font-size: 0.85rem;">FECHA INICIO</th>
+                        <th style="font-size: 0.85rem;">FECHA DESEMBOLSO</th>
+                        <th style="font-size: 0.85rem;">ESTADO</th>
+                        <th class="text-end pe-4" style="font-size: 0.85rem;">ACCIONES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for rad in radicaciones %}
+<tr>
+    <td class="ps-4">
+        <div class="fw-bold text-dark">{{ rad.cliente.nombre_completo }}</div>
+        <small class="text-muted">ID: {{ rad.cliente.documento_identidad }}</small>
+    </td>
+
+                    <td>
+                        <select class="form-select form-select-sm border-0 bg-light" style="width: 180px;">
+                            <option selected>POR DEFINIR</option>
+                            <optgroup label="Bancos">
+                                <option>AV VILLAS</option>
+                                <option>BCO OCCIDENTE</option>
+                                <option>BCO PICHINCHA</option>
+                                <option>BCO UNION</option>
+                                <option>BCO SUDAMERIS</option>
+                            </optgroup>
+                            <optgroup label="Financieras / Coops">
+                                <option>BAN100</option>
+                                <option>AVISTA</option>
+                                <option>RAYCO</option>
+                                <option>A&F</option>
+                                <option>JURISCOOP</option>
+                                <option>COOTRACERREJON</option>
+                                <option>FINTRA</option>
+                                <option>SOLFINANZAS</option>
+                                <option>CREDI ALIANZA</option>
+                                <option>MISSION</option>
+                                <option>EXCELCREDIT</option>
+                                <option>SUEÑOS</option>
+                                <option>VANTAGE</option>
+                                <option>COOMULNEGOCIOS</option>
+                                <option>CREZCAMOS</option>
+                                <option>LAGOBO</option>
+                                <option>COOEFECTY</option>
+                            </optgroup>
+                        </select>
+                    </td>
+
+                    <td class="fw-bold text-success">$ {{ rad.monto_solicitado }}</td>
+
+                    <td>
+                        <select class="form-select form-select-sm fw-bold
+                            {% if rad.estado_proceso == 'APROBADO' %}text-success
+                            {% elif rad.estado_proceso == 'RECHAZADO' %}text-danger
+                            {% else %}text-primary{% endif %}" style="width: 150px;">
+                            <option value="NUEVA" {% if rad.estado_proceso == 'NUEVA' %}selected{% endif %}>Nueva</option>
+                            <option value="ESTUDIO" {% if rad.estado_proceso == 'ESTUDIO' %}selected{% endif %}>En Estudio</option>
+                            <option value="DOCUMENTACION" {% if rad.estado_proceso == 'DOCUMENTACION' %}selected{% endif %}>Documentación</option>
+                            <option value="APROBADO" {% if rad.estado_proceso == 'APROBADO' %}selected{% endif %}>Aprobado</option>
+                            <option value="RECHAZADO" {% if rad.estado_proceso == 'RECHAZADO' %}selected{% endif %}>Rechazado</option>
+                            <option value="DESEMBOLSADO" {% if rad.estado_proceso == 'DESEMBOLSADO' %}selected{% endif %}>Desembolsado</option>
+                        </select>
+                    </td>
+
+                    <td class="text-end pe-4">
+                        <button class="btn btn-sm btn-primary">
+                            <i class="fas fa-save"></i>
+                        </button>
+                    </td>
+                </tr>
+                {% empty %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

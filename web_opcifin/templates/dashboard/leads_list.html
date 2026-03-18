@@ -1,0 +1,205 @@
+{% extends 'dashboard/main.html' %}
+{% block content %}
+<style>
+    :root {
+        --opcifin-main: #038692;
+        --opcifin-gold: #D4AF37;
+    }
+    .btn-opcifin { background-color: var(--opcifin-main); color: white; border: none; }
+    .btn-opcifin:hover { background-color: #026d77; color: white; }
+    .text-gold { color: var(--opcifin-gold) !important; }
+    .card-hover { transition: all 0.2s ease; border-radius: 15px; cursor: pointer; }
+    .card-hover:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important; }
+    #offcanvasLead { border-radius: 25px 0 0 25px; border-left: 4px solid var(--opcifin-gold); }
+    .nav-pills .nav-link.active { background-color: var(--opcifin-main) !important; }
+    .nav-pills .nav-link { color: #666; }
+    .bg-opcifin-light { background-color: rgba(3, 134, 146, 0.1); color: var(--opcifin-main); }
+</style>
+
+<div class="container-fluid py-4" style="background-color: #F8FAFC;">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-0">Gestión de Leads</h2>
+            <small class="text-muted">{{ leads.count }} prospectos en total</small>
+        </div>
+        <a href="{% url 'registro_manual' %}" class="btn btn-dark px-4 shadow-sm" style="border-radius: 8px;">
+            <i class="fas fa-user-plus me-2 text-gold"></i>Nuevo Lead
+        </a>
+    </div>
+
+    <form method="GET" class="row g-2 mb-4 bg-white p-3 rounded shadow-sm mx-0 border-top border-4 border-info" style="border-color: var(--opcifin-main) !important;">
+        <div class="col-md-3">
+            <div class="input-group input-group-sm border rounded">
+                <span class="input-group-text bg-transparent border-0"><i class="fas fa-search text-muted"></i></span>
+                <input type="text" name="search" class="form-control border-0" placeholder="Nombre o cédula..." value="{{ request.GET.search }}">
+            </div>
+        </div>
+        <div class="col-md-2">
+            <select name="estado" class="form-select form-select-sm">
+                <option value="">Todos los estados</option>
+                {% for key, val in estados %}<option value="{{ key }}" {% if request.GET.estado == key %}selected{% endif %}>{{ val }}</option>{% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select name="nicho" class="form-select form-select-sm">
+                <option value="">Todos los nichos</option>
+                {% for key, val in nichos %}<option value="{{ key }}" {% if request.GET.nicho == key %}selected{% endif %}>{{ val }}</option>{% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select name="fuente" class="form-select form-select-sm">
+                <option value="">Todas las fuentes</option>
+                {% for key, val in fuentes %}<option value="{{ key }}" {% if request.GET.fuente == key %}selected{% endif %}>{{ val }}</option>{% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select name="asesor" class="form-select form-select-sm">
+                <option value="">Todos los asesores</option>
+                {% for aser in asesores %}<option value="{{ aser.id }}" {% if request.GET.asesor == aser.id|stringformat:"s" %}selected{% endif %}>{{ aser.get_full_name|default:aser.username }}</option>{% endfor %}
+            </select>
+        </div>
+        <div class="col-md-1">
+            <button type="submit" class="btn btn-opcifin btn-sm w-100"><i class="fas fa-filter"></i></button>
+        </div>
+    </form>
+
+    <div class="row g-3">
+        {% for lead in leads %}
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100 card-hover" onclick="abrirPanelLead('{{ lead.id }}')">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <h5 class="fw-bold text-dark mb-1">{{ lead.nombre_completo }}</h5>
+                            <span class="badge bg-opcifin-light rounded-pill">{{ lead.get_estado_display }}</span>
+                        </div>
+                        <i class="fas fa-award text-gold"></i>
+                    </div>
+                    <div class="text-muted small mb-3">
+                        <div><i class="fas fa-phone me-2" style="color: var(--opcifin-main);"></i>{{ lead.telefono }}</div>
+                        <div><i class="fas fa-id-card me-2" style="color: var(--opcifin-main);"></i>{{ lead.cedula|default:"N/A" }}</div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center border-top pt-3">
+                        <h5 class="fw-bold mb-0" style="color: var(--opcifin-main);">${{ lead.monto_solicitado }}</h5>
+                        <div class="text-muted small"><i class="fas fa-user-circle me-1 text-gold"></i>
+                            {% if lead.asesor %}{{ lead.asesor.get_full_name }}{% else %}Sin asignar{% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <p class="text-muted">No se encontraron leads con esos filtros.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="offcanvas offcanvas-end border-0 shadow-lg" tabindex="-1" id="offcanvasLead" style="width: 500px;">
+    <div class="offcanvas-header py-4 px-4 bg-white border-bottom">
+        <div class="d-flex align-items-center">
+            <div class="text-white d-flex align-items-center justify-content-center me-3 shadow"
+                 style="width: 52px; height: 52px; border-radius: 16px; background-color: var(--opcifin-main);">
+                <i class="fas fa-user-tie fa-lg"></i>
+            </div>
+            <div>
+                <h5 class="offcanvas-title fw-bold mb-0" id="panelNombre" style="font-size: 1.25rem; color: var(--opcifin-main);">---</h5>
+                <span class="badge bg-opcifin-light" id="panelEstado">NUEVO</span>
+            </div>
+        </div>
+        <button type="button" class="btn-close shadow-none" data-bs-dismiss="offcanvas"></button>
+    </div>
+
+    <div class="offcanvas-body p-0">
+        <div class="px-4 py-4 d-flex gap-2">
+            <a id="btnWhatsapp" href="#" target="_blank" class="btn btn-success flex-grow-1 fw-bold py-2 shadow-sm" style="border-radius: 12px;">
+                <i class="fab fa-whatsapp me-2"></i>WhatsApp
+            </a>
+            <a id="btnRadicacion" href="#" class="btn btn-opcifin flex-grow-1 fw-bold py-2 shadow-sm" style="border-radius: 12px;">
+                <i class="fas fa-file-invoice-dollar me-2 text-gold"></i>Radicación
+            </a>
+        </div>
+
+        <ul class="nav nav-pills nav-fill mx-4 mb-4 bg-light p-1" role="tablist" style="border-radius: 12px;">
+            <li class="nav-item">
+                <button class="nav-link active fw-bold small py-2" data-bs-toggle="tab" data-bs-target="#tab-detalles">DETALLES</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link fw-bold small py-2" data-bs-toggle="tab" data-bs-target="#tab-historial">HISTORIAL</button>
+            </li>
+        </ul>
+
+        <div class="tab-content px-4 pb-5">
+            <div class="tab-pane fade show active" id="tab-detalles">
+                <div class="bg-white border rounded-4 p-3 mb-4 shadow-sm">
+                    <h6 class="fw-bold mb-3 small text-muted text-uppercase">Información Personal</h6>
+                    <div class="d-flex justify-content-between mb-2"> <span class="text-muted small">Cédula</span> <span id="panelCedula" class="fw-bold text-dark"></span> </div>
+                    <div class="d-flex justify-content-between mb-2"> <span class="text-muted small">Teléfono</span> <span id="panelTelefono" class="fw-bold text-dark"></span> </div>
+                    <div class="d-flex justify-content-between mb-0"> <span class="text-muted small">Ciudad</span> <span id="panelCiudad" class="fw-bold text-dark"></span> </div>
+                </div>
+                <div class="bg-white border rounded-4 p-3 mb-4 shadow-sm">
+                    <h6 class="fw-bold mb-3 small text-muted text-uppercase">Perfil Financiero</h6>
+                    <div class="d-flex justify-content-between mb-2"> <span class="text-muted small">Ingresos</span> <span id="panelIngresos" class="fw-bold" style="color: var(--opcifin-main);"></span> </div>
+                    <div class="d-flex justify-content-between mb-0"> <span class="text-muted small">Monto Solicitado</span> <span id="panelMonto" class="fw-bold text-dark"></span> </div>
+                </div>
+                <a id="btnEliminar" href="#" class="btn btn-outline-danger border-0 w-100 py-2 mt-2 small" onclick="return confirm('¿Seguro que deseas eliminar este lead?')">
+                    <i class="fas fa-trash-alt me-2"></i>Eliminar Lead
+                </a>
+            </div>
+
+            <div class="tab-pane fade" id="tab-historial">
+                <p class="text-center text-muted py-4">Historial de actividades próximamente.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function abrirPanelLead(id) {
+    // 1. Limpieza previa de los campos correctos
+    document.getElementById('panelNombre').innerText = "Cargando...";
+    document.getElementById('panelCedula').innerText = "...";
+    document.getElementById('panelCiudad').innerText = "...";
+    document.getElementById('panelTelefono').innerText = "...";
+    document.getElementById('panelMonto').innerText = "$0";
+    document.getElementById('panelIngresos').innerText = "$0";
+
+    fetch(`/lead/json/${id}/`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('panelNombre').innerText = data.nombre;
+            document.getElementById('panelEstado').innerText = data.estado;
+
+            // Sincronizado con la nueva línea del views.py
+            document.getElementById('panelCedula').innerText = data.cedula;
+
+            document.getElementById('panelTelefono').innerText = data.telefono;
+            document.getElementById('panelCiudad').innerText = data.ciudad;
+
+            // 3. Formateo de moneda
+            const formatoCOP = new Intl.NumberFormat('es-CO', {
+                style: 'currency',
+                currency: 'COP',
+                minimumFractionDigits: 0
+            });
+
+            document.getElementById('panelMonto').innerText = formatoCOP.format(data.monto);
+            document.getElementById('panelIngresos').innerText = formatoCOP.format(data.ingresos);
+
+            // 4. Botones de acción
+            document.getElementById('btnWhatsapp').href = `https://wa.me/57${data.telefono}`;
+            document.getElementById('btnEliminar').href = `/lead/eliminar/${id}/`;
+            document.getElementById('btnRadicacion').href = `/convertir-lead/${id}/`;
+
+            // 5. Mostrar panel
+            var myOffcanvas = new bootstrap.Offcanvas(document.getElementById('offcanvasLead'));
+            myOffcanvas.show();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("No se pudo cargar la información del lead.");
+        });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,138 @@
+{% extends 'web_opcifin/index.html' %}
+{% load static %}
+
+{% block title %}Convenios y Aliados | OPCIFIN{% endblock %}
+
+{% block content %}
+<style>
+    .logo-container {
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        background-color: white;
+        border: 1px solid #f0f0f0;
+        height: 130px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        border-radius: 20px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .logo-container:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+        border-color: var(--detalles);
+    }
+
+    .logo-img {
+        max-width: 100%;
+        max-height: 75px;
+        object-fit: contain;
+        filter: grayscale(100%);
+        opacity: 0.7;
+        transition: all 0.4s ease;
+    }
+
+    .logo-container:hover .logo-img {
+        filter: grayscale(0%);
+        opacity: 1;
+        transform: scale(1.05);
+    }
+
+    .text-logo {
+        font-weight: 700;
+        color: var(--encabezado);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .section-title {
+        border-left: 5px solid var(--detalles);
+        padding-left: 15px;
+        margin-bottom: 30px;
+    }
+</style>
+
+<div style="background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{% static "img/convenios_banner.jpg" %}') no-repeat center/cover; padding: 120px 0; color: white; text-align: center; border-bottom: 5px solid #ffc107;">
+    <div class="container" data-aos="zoom-in">
+        <h1 class="display-3 fw-bold">Nuestros <span style="color: #ffc107;">Convenios</span></h1>
+        <p class="lead fs-4 fw-light">Contamos con el respaldo de las entidades financieras más sólidas de Colombia.</p>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="section-title" data-aos="fade-right">
+        <h3 class="fw-bold mb-1" style="color: var(--encabezado);">Entidades Bancarias</h3>
+        <p class="text-muted small">Banca tradicional con procesos ágiles.</p>
+    </div>
+
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4 mb-5">
+        <div class="col" data-aos="fade-up" data-aos-delay="100">
+            <div class="logo-container shadow-sm"><img src="{% static 'img/banco_avvillas.png' %}" class="logo-img" alt="AvVillas"></div>
+        </div>
+        <div class="col" data-aos="fade-up" data-aos-delay="200">
+            <div class="logo-container shadow-sm"><img src="{% static 'img/banco_occidente.png' %}" class="logo-img" alt="Occidente"></div>
+        </div>
+        <div class="col" data-aos="fade-up" data-aos-delay="300">
+            <div class="logo-container shadow-sm"><img src="{% static 'img/banco_pichincha.png' %}" class="logo-img" alt="Pichincha"></div>
+        </div>
+        <div class="col" data-aos="fade-up" data-aos-delay="400">
+            <div class="logo-container shadow-sm"><img src="{% static 'img/banco_sudameris.png' %}" class="logo-img" alt="Sudameris"></div>
+        </div>
+        <div class="col" data-aos="fade-up" data-aos-delay="500">
+            <div class="logo-container shadow-sm"><img src="{% static 'img/banco_union.png' %}" class="logo-img" alt="Unión"></div>
+        </div>
+    </div>
+
+    <div class="section-title" data-aos="fade-right">
+        <h3 class="fw-bold mb-1" style="color: var(--encabezado);">Financieras y Cooperativas</h3>
+        <p class="text-muted small">Alternativas flexibles para todo tipo de perfiles.</p>
+    </div>
+
+    <div class="row row-cols-2 row-cols-md-4 row-cols-lg-4 g-4 mb-5">
+        <div class="col" data-aos="fade-up"><div class="logo-container shadow-sm"><img src="{% static 'img/solfinanzas.png' %}" class="logo-img"></div></div>
+        <div class="col" data-aos="fade-up"><div class="logo-container shadow-sm"><img src="{% static 'img/activos_&_finanzas.png' %}" class="logo-img"></div></div>
+        <div class="col" data-aos="fade-up"><div class="logo-container shadow-sm"><img src="{% static 'img/rayco.png' %}" class="logo-img"></div></div>
+        <div class="col" data-aos="fade-up"><div class="logo-container shadow-sm"><img src="{% static 'img/credialianza.png' %}" class="logo-img"></div></div>
+        <div class="col" data-aos="fade-up"><div class="logo-container shadow-sm"><img src="{% static 'img/avista.png' %}" class="logo-img"></div></div>
+        <div class="col" data-aos="fade-up"><div class="logo-container shadow-sm"><img src="{% static 'img/excel_credit.png' %}" class="logo-img"></div></div>
+        <div class="col" data-aos="fade-up"><div class="logo-container shadow-sm"><img src="{% static 'img/mission.png' %}" class="logo-img"></div></div>
+        <div class="col" data-aos="fade-up"><div class="logo-container shadow-sm"><img src="{% static 'img/juriscoop.png' %}" class="logo-img"></div></div>
+        <div class="col" data-aos="fade-up"><div class="logo-container shadow-sm"><img src="{% static 'img/ban100.png' %}" class="logo-img"></div></div>
+        <div class="col" data-aos="fade-up"><div class="logo-container shadow-sm"><img src="{% static 'img/credito_2_sueños.png' %}" class="logo-img"></div></div>
+        <div class="col" data-aos="fade-up"><div class="logo-container shadow-sm"><img src="{% static 'img/cootracerrejon.png' %}" class="logo-img"></div></div>
+
+        <div class="col" data-aos="fade-up">
+            <div class="logo-container shadow-sm flex-column">
+                <i class="bi bi-building-check text-muted fs-2"></i>
+                <span class="text-logo">Coomulnegocios</span>
+            </div>
+        </div>
+        <div class="col" data-aos="fade-up">
+            <div class="logo-container shadow-sm flex-column">
+                <i class="bi bi-building-check text-muted fs-2"></i>
+                <span class="text-logo">Cooefecty</span>
+            </div>
+        </div>
+
+        <div class="col" data-aos="fade-up"><div class="logo-container shadow-sm"><img src="{% static 'img/vantage.png' %}" class="logo-img"></div></div>
+        <div class="col" data-aos="fade-up"><div class="logo-container shadow-sm"><img src="{% static 'img/crezcamos.png' %}" class="logo-img"></div></div>
+        <div class="col" data-aos="fade-up"><div class="logo-container shadow-sm"><img src="{% static 'img/lagobo.png' %}" class="logo-img"></div></div>
+        <div class="col" data-aos="fade-up"><div class="logo-container shadow-sm"><img src="{% static 'img/fintra.png' %}" class="logo-img"></div></div>
+    </div>
+
+    <div class="mt-5 p-5 bg-dark text-white rounded-5 text-center shadow-lg position-relative overflow-hidden" data-aos="flip-up">
+        <div style="position: relative; z-index: 2;">
+            <h4 class="fw-bold mb-3">¿Eres cliente de una de estas entidades?</h4>
+            <p class="mb-4 opacity-75 fs-5">Tú crédito por libranza es mucho más sencillo con nosotros.</p>
+            <a href="https://wa.me/573102001662?text=Hola,%20soy%20cliente%20de%20aliados%20y%20quiero%20consultar%20mi%20cupo"
+               target="_blank" class="btn btn-warning btn-lg px-5 fw-bold rounded-pill">
+                <i class="bi bi-whatsapp me-2"></i>Consultar con un asesor
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

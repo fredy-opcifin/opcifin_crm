@@ -1,22 +1,21 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Solicitud Recibida - OPCIFIN</title>
-    <style>
-        body { font-family: sans-serif; text-align: center; padding: 50px; background-color: #f4f7f6; }
-        .card { background: white; padding: 40px; border-radius: 10px; display: inline-block; border-top: 5px solid #D4AF37; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        h1 { color: #001A33; }
-        p { color: #666; font-size: 18px; }
-        .btn-volver { display: inline-block; margin-top: 20px; padding: 10px 20px; background: #00A3D3; color: white; text-decoration: none; border-radius: 5px; }
-    </style>
-</head>
-<body>
-    <div class="card">
-        <h1>¡Solicitud Recibida con Éxito!</h1>
-        <p>Hola <strong>{{ nombre }}</strong>, hemos recibido tus documentos correctamente.</p>
-        <p>Nuestro equipo de analistas revisará tu información y te contactaremos pronto.</p>
-        <a href="/" class="btn-volver">Volver al Inicio</a>
+{% extends 'web_opcifin/index.html' %}
+{% block content %}
+<div class="container text-center py-5 my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <div class="mb-4">
+                <i class="bi bi-shield-check text-success" style="font-size: 6rem;"></i>
+            </div>
+            <h1 class="display-5 fw-bold text-dark">¡Misión Iniciada! 🚀</h1>
+            <p class="lead mb-4">
+                Hola, ya tenemos tus datos en nuestro radar. Mientras tú te relajas, el equipo experto de <strong>OPCIFIN</strong> está analizando los números para darte la respuesta que tu bolsillo necesita.
+            </p>
+            <div class="alert alert-info border-0 shadow-sm p-4">
+                <h5 class="fw-bold"><i class="bi bi-megaphone me-2"></i>¿Qué sigue ahora?</h5>
+                <p class="small mb-0">Atento a tu <strong>WhatsApp</strong> y <strong>Correo</strong>; uno de nuestros asesores te contactará personalmente para finalizar los detalles de tu estudio.</p>
+            </div>
+            <a href="{% url 'home' %}" class="btn btn-primary btn-lg px-5 mt-4 rounded-pill shadow">Volver al Inicio</a>
+        </div>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}

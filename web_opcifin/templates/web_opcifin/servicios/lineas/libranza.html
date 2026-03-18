@@ -1,0 +1,181 @@
+{% extends 'web_opcifin/index.html' %}
+{% load static %}
+
+{% block title %}Crédito por Libranza y Libre Inversión | OPCIFIN{% endblock %}
+
+{% block content %}
+<style>
+    .floating-asset {
+        animation: float 5s ease-in-out infinite;
+        /* El filtro crea un resplandor sutil con el color de tu encabezado (#038692) */
+        filter: drop-shadow(0 10px 15px rgba(3, 134, 146, 0.3));
+        max-width: 100%;
+        height: auto;
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-15px) rotate(1deg); }
+        100% { transform: translateY(0px) rotate(0deg); }
+    }
+
+    .border-custom {
+        border-left: 5px solid var(--encabezado) !important;
+    }
+</style>
+
+<div style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{% static "img/libranza_banner.jpg" %}') no-repeat center/cover; padding: 130px 0; color: white; text-align: center; border-bottom: 5px solid var(--detalles);">
+    <div class="container" data-aos="zoom-in">
+        <h1 class="display-3 fw-bold">Crédito por <span style="color: var(--detalles);">Libranza</span></h1>
+        <p class="lead fs-4 fw-light" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.9);">Financiación de libre inversión con las tasas más competitivas del mercado.</p>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row g-5">
+        <div class="col-lg-8">
+            <div data-aos="fade-up">
+                <h2 class="fw-bold mb-4" style="color: var(--encabezado);">Liquidez inmediata mediante descuento de nómina</h2>
+                <p class="fs-5 text-muted">
+                    El crédito por libranza es la herramienta financiera más eficiente para quienes buscan <strong>libre inversión</strong>. Al estar respaldado por tu estabilidad laboral o pensional, las entidades bancarias y cooperativas aliadas nos permiten gestionar montos superiores con trámites simplificados y plazos extendidos.
+                </p>
+                <p class="fs-6 text-muted">
+                    En <strong>OPCIFIN</strong>, actuamos como tu representante ante las principales instituciones del país (como Banco Pichincha, Av Villas, Sudameris, y diversas cooperativas), garantizando que tu solicitud se radique donde obtengas el mayor beneficio.
+                </p>
+            </div>
+
+            <div class="row my-5 text-center" data-aos="fade-up">
+                <div class="col-md-4 mb-3">
+                    <div class="p-4 border-0 shadow-sm h-100 bg-light rounded-4 border-bottom border-primary border-3">
+                        <i class="bi bi-cash-stack fs-1 text-primary"></i>
+                        <h5 class="fw-bold mt-3">Libre Destino</h5>
+                        <p class="small text-muted">Usa el capital para compra de cartera, viajes o proyectos personales sin restricciones.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="p-4 border-0 shadow-sm h-100 bg-light rounded-4 border-bottom border-success border-3">
+                        <i class="bi bi-percent fs-1 text-success"></i>
+                        <h5 class="fw-bold mt-3">Tasa Preferencial</h5>
+                        <p class="small text-muted">Al ser descuento directo, el riesgo disminuye y tu tasa de interés baja significativamente.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="p-4 border-0 shadow-sm h-100 bg-light rounded-4 border-bottom border-warning border-3">
+                        <i class="bi bi-person-check fs-1 text-warning"></i>
+                        <h5 class="fw-bold mt-3">Sin Codeudor</h5>
+                        <p class="small text-muted">No necesitas comprometer a terceros; tu vinculación institucional es tu garantía.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rounded-5 p-4 p-md-5 mb-5 shadow-sm"
+                style="background-color: #f0faff; border: 1px solid #e1f0f7;"
+                data-aos="fade-up">
+
+                <div class="row align-items-center">
+                    <div class="col-lg-7">
+                        <h3 class="fw-bold mb-4 pb-2" style="color: var(--encabezado); border-bottom: 3px solid var(--detalles); display: inline-block;">
+                            Requisitos según tu Perfil
+                        </h3>
+                        <p class="text-muted mb-4 small">
+                            <i class="bi bi-info-circle-fill me-2 text-info"></i>
+                            <em>Documentación base sujeta a políticas de la entidad financiera.</em>
+                        </p>
+
+                        <div class="accordion shadow-sm rounded-4 overflow-hidden" id="accordionRequisitos">
+                            <div class="accordion-item border-0 mb-2 rounded-3 overflow-hidden">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button fw-bold bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#pensionados">
+                                        <i class="bi bi-person-heart me-2 text-primary"></i> Pensionados
+                                    </button>
+                                </h2>
+                                <div id="pensionados" class="accordion-collapse collapse show" data-bs-parent="#accordionRequisitos">
+                                    <div class="accordion-body bg-white text-muted">
+                                        <ul class="mb-0">
+                                            <li>Últimos dos desprendibles de pago pensional.</li>
+                                            <li>Fotocopia de la cédula ampliada al 150%.</li>
+                                            <li>Resolución de pensión (si se requiere).</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item border-0 mb-2 rounded-3 overflow-hidden">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed fw-bold bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#docentes">
+                                        <i class="bi bi-mortarboard me-2 text-success"></i> Docentes Oficiales
+                                    </button>
+                                </h2>
+                                <div id="docentes" class="accordion-collapse collapse" data-bs-parent="#accordionRequisitos">
+                                    <div class="accordion-body bg-white text-muted">
+                                        <ul class="mb-0">
+                                            <li>Dos últimos desprendibles de pago completos.</li>
+                                            <li>Certificado laboral (no mayor a 30 días).</li>
+                                            <li>Resolución de nombramiento.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item border-0 rounded-3 overflow-hidden">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed fw-bold bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#publicos">
+                                        <i class="bi bi-building me-2 text-warning"></i> Empleados Públicos
+                                    </button>
+                                </h2>
+                                <div id="publicos" class="accordion-collapse collapse" data-bs-parent="#accordionRequisitos">
+                                    <div class="accordion-body bg-white text-muted">
+                                        <ul class="mb-0">
+                                            <li>Certificación laboral con cargo y antigüedad.</li>
+                                            <li>Últimos tres desprendibles de nómina.</li>
+                                            <li>Vínculo laboral vigente (Indefinido).</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5 d-none d-lg-block text-center">
+                        <img src="{% static 'img/fondo_libranza.png' %}"
+                            alt="Opcifin Libranza"
+                            class="floating-asset img-fluid"
+                            style="filter: drop-shadow(0 20px 30px rgba(0,0,0,0.1));">
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-info border-custom mt-5 p-4 shadow-sm rounded-4" data-aos="fade-up">
+                <div class="d-flex">
+                    <i class="bi bi-info-square-fill fs-3 me-3 text-primary"></i>
+                    <div>
+                        <h5 class="fw-bold">Gestión Multibanca</h5>
+                        <p class="mb-0 small">Analizamos tu capacidad en más de 20 entidades financieras para radicar tu solicitud donde obtengas la mejor tasa según tu perfil.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-lg p-4" style="position: sticky; top: 110px; border-radius: 20px; background: #fefefe;" data-aos="fade-left">
+                <h4 class="fw-bold text-center mb-4" style="color: var(--encabezado);">Solicitud de Estudio</h4>
+                <p class="text-center text-muted small mb-4">Realizamos tu pre-aprobado de forma gratuita y sin afectar tu historial.</p>
+
+                <a href="https://wa.me/573102001662?text=Hola,%20deseo%20asesoría%20para%20un%20crédito%20de%20libranza" target="_blank" class="btn btn-success btn-lg w-100 mb-3 py-3 fw-bold rounded-pill shadow-sm transition-all">
+                    <i class="bi bi-whatsapp me-2"></i>Consultar por WhatsApp
+                </a>
+
+                <a href="{% url 'home' %}#registro" class="btn btn-outline-dark w-100 py-3 rounded-pill fw-bold">
+                    <i class="bi bi-pencil-square me-2"></i>Formulario en Línea
+                </a>
+
+                <div class="mt-4 pt-3 border-top">
+                    <p class="x-small text-muted text-center">
+                        <i class="bi bi-lock-fill text-success"></i> Tus datos están protegidos.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

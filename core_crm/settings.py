@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-%nom1n)o$vh+ff*9m-h17+#zk$8b-h&w*x6(_@%-4=qos_#g)-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.176.83.148', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['opcionesfinancieras.pythonanywhere.com']
 
 
 # Application definition
@@ -58,7 +58,7 @@ ROOT_URLCONF = 'core_crm.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')], # <-- Agrega esto para que encuentre tus HTML globales
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -115,18 +115,30 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/6.0/howto/static-files/
-
-STATIC_URL = 'static/'
-
-# Esta es la línea clave que faltaba para reconocer tu carpeta de estilos
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # Aquí Django "reúne" todo para el servidor
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    os.path.join(BASE_DIR, 'static'),
 ]
 
-# Configuración para subir archivos multimedia (documentos, imágenes, etc.)
+# Configuración para archivos subidos (Fotos del Admin)
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# opcifin_crm/settings.py
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'atencionalclienteopcifin@gmail.com'
+EMAIL_HOST_PASSWORD = 'meylrazyduuevrld'
+DEFAULT_FROM_EMAIL = 'OPCIFIN <atencionalclienteopcifin@gmail.com>'
+
+# Acceso al Dashboard Moderno
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'dashboard_moderno'

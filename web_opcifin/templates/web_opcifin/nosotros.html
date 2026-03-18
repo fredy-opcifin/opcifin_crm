@@ -1,52 +1,132 @@
+{% extends 'web_opcifin/index.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Nosotros - OPCIFIN</title>
-    <style>
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
-        nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 5%;
-    background: #038692; /* Tu nuevo color llamativo */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Sombra un poco más marcada */
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
 
-.nav-links a { 
-    text-decoration: none; 
-    color: #ffffff; 
-    font-weight: 700; /* Letras un poco más gruesas para que resalten */
-    font-size: 0.9em; 
-    transition: 0.3s;
-}
+{% block title %}Nosotros | OPCIFIN - Tu Familia Financiera{% endblock %}
 
-.nav-links a:hover { 
-    color: #D4AF37; /* El dorado de OPCIFIN al pasar el mouse */
-}    
-    </style>
-</head>
-<body>
-    <nav>
-        <div class="logo-container">
-            <a href="/"><img src="{% static 'img/logo_opcifin.png' %}" style="height: 70px;"></a>
+{% block content %}
+<style>
+    /* BANNER CENTRADO */
+    .banner-nosotros {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                    url('{% static "img/nosotros_banner.jpg" %}') no-repeat center/cover;
+        color: white;
+        padding: 100px 0;
+        text-align: center; /* Esto centra el título y el subtítulo del banner */
+        border-bottom: 5px solid var(--detalles);
+    }
+
+    /* CARDS CON IMÁGENES */
+    .card-nosotros {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .icon-box {
+        width: 60px;
+        height: 60px;
+        background: var(--encabezado);
+        color: var(--detalles);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: -30px auto 20px;
+        position: relative;
+        border: 4px solid white;
+    }
+
+    .logo-relleno {
+        width: 100%;       /* Ocupa el ancho del contenedor */
+        max-width: 450px;  /* Súbelo a 450px o 500px según prefieras */
+        height: auto;
+        opacity: 1;        /* Le subí la opacidad para que resalte más */
+        filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15)); /* Sombra más profunda */
+        transition: transform 0.3s ease;
+    }
+
+    .logo-relleno:hover {
+        transform: scale(1.05); /* Un pequeño efecto de aumento al pasar el mouse */
+    }
+</style>
+
+<section class="banner-nosotros">
+    <div class="container d-flex flex-column align-items-center justify-content-center" data-aos="zoom-in">
+        <h1 class="display-3 fw-bold mb-3">Nuestra <span style="color: var(--detalles);">Historia</span></h1>
+        <p class="lead fs-4 fw-light mx-auto" style="max-width: 800px; text-shadow: 1px 1px 5px rgba(0,0,0,0.8);">
+            Más de una década transformando sueños en metas cumplidas, con el corazón en Valledupar y la mirada en toda Colombia.
+        </p>
+    </div>
+</section>
+
+<main class="container my-5 py-5">
+    <div class="row align-items-center g-5">
+        <div class="col-lg-7" data-aos="fade-right">
+            <h2 class="display-5 fw-bold mb-4" style="color: var(--encabezado);">Un sueño que nació para <span style="color: var(--detalles);">servir</span></h2>
+
+            <div class="fs-5 text-muted" style="text-align: justify;"> <p>Hace más de <strong>10 años</strong>, OPCIFIN surgió no como una empresa más, sino como la respuesta a una necesidad real: encontrar un aliado de confianza que hablara el mismo idioma que las personas.</p>
+
+                <p>Nacimos con la visión de ser ese <strong>outsourcing financiero</strong> que te toma de la mano. Para nosotros, no eres un número de radicado; eres parte de nuestra familia. Nos mueve el deseo de acompañarte en cada paso, celebrando tus logros como si fueran propios.</p>
+            </div>
+
+            <div class="mt-4 p-3 border-start border-4 border-warning bg-light rounded-end">
+                <em class="text-dark">"En OPCIFIN, tu tranquilidad financiera es nuestro mayor compromiso familiar."</em>
+            </div>
         </div>
-        <ul class="nav-links">
-            <li><a href="/">INICIO</a></li>
-            <li><a href="/servicios/">SERVICIOS</a></li>
-            <li><a href="/nosotros/">NOSOTROS</a></li>
-            <li><a href="/contacto/">CONTACTO</a></li>
-        </ul>
-    </nav>
 
-    <div class="content">
-        <h1>Conoce a <span class="gold">OPCIFIN</span></h1>
-        <p>Somos un broker financiero con más de 10 años de experiencia en Valledupar y cobertura nacional.</p>
+        <div class="col-lg-5 text-center" data-aos="fade-left">
+            <img src="{% static 'img/logo_opcifin_3.png' %}" alt="Logo OPCIFIN" class="logo-relleno">
         </div>
-</body>
-</html>
+    </div>
+
+    <div class="row g-4 mt-5">
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="card-nosotros">
+                <img src="{% static 'img/mision.jpg' %}" class="card-img-top" alt="Misión">
+                <div class="card-body p-4 text-center">
+                    <div class="icon-box"><i class="bi bi-rocket-takeoff fs-4"></i></div>
+                    <h3 class="fw-bold h4">Misión</h3>
+                    <p class="text-muted small">Brindar un acompañamiento humano y profesional, facilitando el acceso a soluciones financieras que impulsen el bienestar de las familias colombianas.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="card-nosotros">
+                <img src="{% static 'img/vision.jpg' %}" class="card-img-top" alt="Visión">
+                <div class="card-body p-4 text-center">
+                    <div class="icon-box"><i class="bi bi-eye fs-4"></i></div>
+                    <h3 class="fw-bold h4">Visión</h3>
+                    <p class="text-muted small">Consolidarnos para el 2030 como el puente financiero más confiable de Colombia, manteniendo siempre ese trato cercano que nos caracteriza.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="card-nosotros">
+                <img src="{% static 'img/valores.jpg' %}" class="card-img-top" alt="Valores">
+                <div class="card-body p-4 text-center">
+                    <div class="icon-box"><i class="bi bi-heart-fill fs-4"></i></div>
+                    <h3 class="fw-bold h4">Valores</h3>
+                    <p class="text-muted small">Nos rige la Lealtad, la Transparencia y el Respaldo. Actuamos con la integridad de una familia que cuida de los suyos.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<section class="py-5 bg-dark text-white text-center">
+    <div class="container" data-aos="flip-up">
+        <h3 class="fw-bold mb-4">¿Listo para empezar tu camino con nosotros?</h3>
+        <a href="https://wa.me/573102001662" target="_blank" class="btn btn-warning btn-lg px-5 rounded-pill fw-bold text-dark">
+            Hablar con un asesor
+        </a>
+    </div>
+</section>
+{% endblock %}

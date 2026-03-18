@@ -1,73 +1,111 @@
 from django.contrib import admin
+from django.contrib.auth.models import User
 from django.utils.html import format_html
-# AQUÍ ESTÁ EL TRUCO: Agregué ContenidoMultimedia al final de la lista de importación
-from .models import Cliente, Radicacion, MatrizPerfilamiento, EntidadConvenio, NotaSeguimiento, ArchivoAdjunto, ContenidoMultimedia
+from .models import (
+    Cliente, Radicacion, EntidadConvenio, Lead,
+    PerfilAsesor, Recordatorio, Resena, ArchivoAdjunto
+)
 
-# 1. IDENTIDAD VISUAL DE OPCIFIN
+# 1. PERSONALIZACIÓN DEL ENCABEZADO
 admin.site.site_header = "OPCIFIN - Administración"
 admin.site.site_title = "OPCIFIN Admin"
 admin.site.index_title = "Gestión de Radicaciones"
 
-# --- BLOQUE DE INLINES ---
-class NotaSeguimientoInline(admin.TabularInline):
-    model = NotaSeguimiento
-    extra = 1
-    fields = ('comentario', 'fecha_creacion')
-    readonly_fields = ('fecha_creacion',)
+# --- 2. CLASES AUXILIARES Y FILTROS ---
 
-class RadicacionInline(admin.StackedInline):
+class FiltroPorAsesorAdmin(admin.ModelAdmin):
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser or request.user.groups.filter(name='Auxiliar').exists():
+            return qs
+        # Cambiado de agente_asignado a asesor/asesor_asignado según el modelo
+        if hasattr(self.model, 'asesor'):
+            return qs.filter(asesor=request.user)
+        if hasattr(self.model, 'asesor_asignado'):
+            return qs.filter(asesor_asignado=request.user)
+        return qs
+
+    def save_model(self, request, obj, form, change):
+        # Asignación automática del usuario logueado
+        if hasattr(obj, 'asesor') and not obj.asesor:
+            obj.asesor = request.user
+        elif hasattr(obj, 'asesor_asignado') and not obj.asesor_asignado:
+            obj.asesor_asignado = request.user
+        super().save_model(request, obj, form, change)
+
+# --- 3. INLINES ---
+
+class RadicacionInline(admin.TabularInline):
     model = Radicacion
     extra = 0
-    show_change_link = True
+    fields = ('fecha_inicio', 'monto_solicitado', 'estado_proceso')
+    readonly_fields = ('fecha_inicio',)
 
-# --- CONFIGURACIÓN DEL MODELO CLIENTE ---
+# --- 4. CONFIGURACIÓN DE MODELOS ---
+
+@admin.register(PerfilAsesor)
+class PerfilAsesorAdmin(admin.ModelAdmin):
+    list_display = ('usuario', 'cargo', 'estatus', 'meta_mensual_unidades')
+    list_editable = ('estatus', 'cargo')
+    list_filter = ('estatus', 'cargo')
+
 @admin.register(Cliente)
-class ClienteAdmin(admin.ModelAdmin):
-    list_display = ('documento_identidad', 'nombre', 'perfil_laboral', 'score_datacredito', 'agente_asignado', 'tipo_origen')
-    search_fields = ('nombre', 'documento_identidad')
-    list_filter = ('perfil_laboral', 'agente_asignado')
-    inlines = [NotaSeguimientoInline, RadicacionInline]
+class ClienteAdmin(admin.ModelAdmin): # Nota: Cliente usa 'agente_asignado' según tu models
+    list_display = ('nombre', 'perfil_laboral', 'telefono', 'ver_reporte', 'agente_asignado')
+    search_fields = ('nombre', 'documento_identidad', 'telefono')
+    list_filter = ('perfil_laboral', 'tiene_reportes_negativos', 'agente_asignado')
+    inlines = [RadicacionInline]
 
-    def tipo_origen(self, obj):
-        if obj.documento_identidad and str(obj.documento_identidad).startswith('WEB-'):
-            return "🌐 WEB"
-        return "👤 MANUAL"
-    
-    tipo_origen.short_description = 'Origen'
+    def ver_reporte(self, obj):
+        if obj.tiene_reportes_negativos:
+            return format_html('<span style="color: #d9534f; font-weight: bold;">🔴 Reportado</span>')
+        return format_html('<span style="color: #5cb85c; font-weight: bold;">🟢 Al día</span>')
+    ver_reporte.short_description = 'Centrales'
+
+@admin.register(Lead)
+class LeadAdmin(FiltroPorAsesorAdmin):
+    # Ajustado a los nombres del nuevo models.py
+    list_display = ('codigo_gestion', 'nombre_completo', 'ciudad', 'monto_solicitado', 'estado', 'asesor')
+    list_editable = ('estado',)
+    list_filter = ('estado', 'fuente', 'nicho', 'prioridad', 'asesor')
+    search_fields = ('nombre_completo', 'cedula', 'telefono', 'codigo_gestion')
 
     fieldsets = (
-        ('Datos del Cliente', {'fields': ('nombre', 'documento_identidad')}),
-        ('Perfil Laboral y Crédito', {'fields': ('perfil_laboral', 'score_datacredito', 'agente_asignado')}),
-        ('Estado de Riesgos', {'fields': ('tiene_embargos', 'tiene_reportes_negativos')}),
+        ('Información del Lead', {
+            'fields': ('codigo_gestion', 'nombre_completo', 'cedula', 'telefono', 'email', 'ciudad', 'departamento')
+        }),
+        ('Detalles del Crédito', {
+            'fields': ('nicho', 'monto_solicitado', 'ingreso_mensual', 'fuente', 'prioridad', 'empleador')
+        }),
+        ('Gestión de Oficina', {
+            'fields': ('asesor', 'estado', 'notas')
+        }),
     )
-
-# --- CONFIGURACIÓN DE LOS DEMÁS MODELOS ---
+    readonly_fields = ('codigo_gestion',)
 
 @admin.register(Radicacion)
 class RadicacionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'cliente', 'entidad', 'monto_solicitado', 'estado_proceso', 'fecha_radicacion')
-    list_editable = ('estado_proceso',)
-    list_filter = ('estado_proceso', 'entidad')
+    list_display = ('cliente', 'entidad', 'monto_solicitado', 'estado_proceso', 'fecha_inicio', 'fecha_desembolso')
+    list_editable = ('estado_proceso', 'fecha_desembolso')
+    list_filter = ('estado_proceso', 'entidad', 'asesor_asignado')
 
-@admin.register(MatrizPerfilamiento)
-class MatrizPerfilamientoAdmin(admin.ModelAdmin):
-    list_display = ('entidad', 'segmento_cliente', 'score_minimo')
+@admin.register(Recordatorio)
+class RecordatorioAdmin(admin.ModelAdmin):
+    list_display = ('titulo', 'usuario', 'fecha', 'completado')
+    list_filter = ('completado', 'fecha', 'usuario')
+    search_fields = ('titulo', 'usuario__username')
 
 @admin.register(EntidadConvenio)
 class EntidadConvenioAdmin(admin.ModelAdmin):
     list_display = ('nombre_entidad', 'tipo_entidad', 'activo')
     list_editable = ('activo',)
 
-@admin.register(NotaSeguimiento)
-class NotaSeguimientoAdmin(admin.ModelAdmin):
-    list_display = ('cliente', 'comentario', 'fecha_creacion')
+@admin.register(Resena)
+class ResenaAdmin(admin.ModelAdmin):
+    list_display = ('autor', 'puntuacion', 'fecha_creacion')
+    list_filter = ('puntuacion', 'fecha_creacion')
+    readonly_fields = ('fecha_creacion',)
 
 @admin.register(ArchivoAdjunto)
 class ArchivoAdjuntoAdmin(admin.ModelAdmin):
-    list_display = ('radicacion', 'tipo_documento', 'archivo', 'fecha_subida')
-
-# --- NUEVA SECCIÓN MULTIMEDIA PARA LLENAR LA WEB ---
-@admin.register(ContenidoMultimedia)
-class ContenidoMultimediaAdmin(admin.ModelAdmin):
-    list_display = ('seccion', 'titulo', 'activo')
-    list_filter = ('seccion', 'activo')
+    list_display = ('lead', 'archivo', 'fecha_subida')

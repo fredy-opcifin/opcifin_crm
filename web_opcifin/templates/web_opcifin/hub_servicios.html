@@ -1,0 +1,98 @@
+{% extends 'web_opcifin/index.html' %}
+{% load static %}
+
+{% block title %}Servicios de Gestión | OPCIFIN{% endblock %}
+
+{% block content %}
+<div style="background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{% static "img/hub_servicios_banner.jpg" %}') no-repeat center/cover; padding: 120px 0; color: white; text-align: center; border-bottom: 5px solid #28a745;">
+    <div class="container" data-aos="zoom-in">
+        <h1 class="display-3 fw-bold">Soluciones <span style="color: #28a745;">Especializadas</span></h1>
+        <p class="lead fs-4">Gestión jurídica y financiera para sanear tu economía.</p>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row g-4 justify-content-center">
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+            <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden hover-card">
+                <img src="{% static 'img/cartera.jpg' %}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Compra de Cartera">
+                <div class="card-body text-center p-4">
+                    <h5 class="fw-bold mb-2">Compra de Cartera</h5>
+                    <p class="small text-muted mb-4">Unifica tus deudas en una sola cuota y mejora tu flujo de caja mensual.</p>
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'compra_cartera' %}" class="btn btn-outline-success rounded-pill fw-bold btn-sm">Ver info</a>
+                        <a href="{% url 'home' %}#registro" class="btn btn-success rounded-pill fw-bold btn-sm shadow-sm">Solicitar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+            <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden hover-card">
+                <img src="{% static 'img/reportes.jpg' %}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Reportes Negativos">
+                <div class="card-body text-center p-4">
+                    <h5 class="fw-bold mb-2">Reportes Negativos</h5>
+                    <p class="small text-muted mb-4">Asesoría jurídica experta bajo la Ley de Borrón y Cuenta Nueva.</p>
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'eliminacion_reportes' %}" class="btn btn-outline-success rounded-pill fw-bold btn-sm">Ver info</a>
+                        <a href="{% url 'home' %}#registro" class="btn btn-success rounded-pill fw-bold btn-sm shadow-sm">Solicitar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+            <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden hover-card">
+                <img src="{% static 'img/casa.jpg' %}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Hipotecas">
+                <div class="card-body text-center p-4">
+                    <h5 class="fw-bold mb-2">Hipotecas</h5>
+                    <p class="small text-muted mb-4">Obtén liquidez inmediata utilizando tu inmueble como respaldo financiero.</p>
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'hipotecas' %}" class="btn btn-outline-success rounded-pill fw-bold btn-sm">Ver info</a>
+                        <a href="{% url 'home' %}#registro" class="btn btn-success rounded-pill fw-bold btn-sm shadow-sm">Solicitar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
+            <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden hover-card">
+                <img src="{% static 'img/cupo.jpg' %}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Retanqueos">
+                <div class="card-body text-center p-4">
+                    <h5 class="fw-bold mb-2">Retanqueos</h5>
+                    <p class="small text-muted mb-4">Optimiza y aumenta el cupo disponible de tus créditos vigentes ahora.</p>
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'retanqueos' %}" class="btn btn-outline-success rounded-pill fw-bold btn-sm">Ver info</a>
+                        <a href="{% url 'home' %}#registro" class="btn btn-success rounded-pill fw-bold btn-sm shadow-sm">Solicitar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-card {
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        border: 1px solid rgba(0,0,0,0.03) !important;
+    }
+    .hover-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.12) !important;
+    }
+    /* Estilo coherente con el color de gestión (verde) */
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+    .btn-success:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
+    .btn-outline-success:hover {
+        color: #fff;
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+</style>
+{% endblock %}

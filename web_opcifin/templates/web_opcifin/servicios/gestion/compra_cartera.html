@@ -1,0 +1,154 @@
+{% extends 'web_opcifin/index.html' %}
+{% load static %}
+
+{% block title %}Compra de Cartera | OPCIFIN{% endblock %}
+
+{% block content %}
+<style>
+    .floating-asset {
+        animation: float 5s ease-in-out infinite;
+        filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.1));
+        max-width: 100%;
+        height: auto;
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-15px); }
+        100% { transform: translateY(0px); }
+    }
+
+    .benefit-card {
+        transition: transform 0.3s ease;
+        border-radius: 15px;
+    }
+
+    .benefit-card:hover {
+        transform: translateY(-5px);
+    }
+</style>
+
+<div style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{% static "img/compra_cartera_banner.jpg" %}') no-repeat center/cover; padding: 120px 0; color: white; text-align: center; border-bottom: 5px solid var(--detalles);">
+    <div class="container" data-aos="zoom-in">
+        <h1 class="display-3 fw-bold">Compra de <span style="color: var(--detalles);">Cartera</span></h1>
+        <p class="lead fs-4 fw-light" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.9);">Unificamos tus deudas para que recuperes tu tranquilidad y flujo de caja.</p>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row g-5">
+        <div class="col-lg-8">
+            <div data-aos="fade-up">
+                <h2 class="fw-bold mb-4" style="color: var(--encabezado);">¿Tu salario se va en pagar intereses?</h2>
+                <p class="fs-5 text-muted">
+                    Si tienes múltiples obligaciones (tarjetas de crédito, préstamos, deudas vencidas) y los intereses están consumiendo tus ingresos, nuestra solución de <strong>Compra de Cartera</strong> es el salvavidas que necesitas. Trasladamos tus deudas a una sola entidad con una tasa fija y mucho más baja.
+                </p>
+            </div>
+
+            <div class="row g-4 my-4" data-aos="fade-up">
+                <div class="col-md-6">
+                    <div class="p-3 bg-light benefit-card d-flex align-items-center shadow-sm">
+                        <i class="bi bi-graph-down-arrow text-danger me-3 fs-2"></i>
+                        <span class="small fw-bold text-dark">Detenemos el crecimiento de tu deuda por mora.</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="p-3 bg-light benefit-card d-flex align-items-center shadow-sm">
+                        <i class="bi bi-cash-stack text-success me-3 fs-2"></i>
+                        <span class="small fw-bold text-dark">Pagas una sola cuota mensual más baja.</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="p-3 bg-light benefit-card d-flex align-items-center shadow-sm">
+                        <i class="bi bi-star-fill text-warning me-3 fs-2"></i>
+                        <span class="small fw-bold text-dark">Mejoras tu calificación en centrales de riesgo.</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="p-3 bg-light benefit-card d-flex align-items-center shadow-sm">
+                        <i class="bi bi-emoji-smile-fill text-primary me-3 fs-2"></i>
+                        <span class="small fw-bold text-dark">Adiós al acoso de las agencias de cobro.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rounded-5 p-4 p-md-5 mb-5 shadow-sm"
+                 style="background-color: #f0faff; border: 1px solid #e1f0f7;"
+                 data-aos="fade-up">
+
+                <div class="row align-items-center">
+                    <div class="col-lg-7">
+                        <h3 class="fw-bold mb-4 pb-2" style="color: var(--encabezado); border-bottom: 3px solid var(--detalles); display: inline-block;">
+                            Saneamiento Financiero
+                        </h3>
+                        <p class="text-muted small">Realizamos un análisis detallado de tu estado en Datacrédito y Cifín para negociar con tus acreedores.</p>
+
+                        <div class="accordion shadow-sm rounded-4 overflow-hidden" id="accCartera">
+                            <div class="accordion-item border-0 mb-2 rounded-3 overflow-hidden">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button fw-bold bg-white text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#c1">
+                                        <i class="bi bi-check2-circle me-2 text-primary"></i> Perfil para el trámite
+                                    </button>
+                                </h2>
+                                <div id="c1" class="accordion-collapse collapse show" data-bs-parent="#accCartera">
+                                    <div class="accordion-body bg-white text-muted small">
+                                        Este proceso es ideal para <strong>pensionados, docentes y empleados públicos</strong> que tengan capacidad de descuento por nómina (Libranza).
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item border-0 rounded-3 overflow-hidden">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed fw-bold bg-white text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#c2">
+                                        <i class="bi bi-file-earmark-plus me-2 text-success"></i> ¿Qué necesitamos?
+                                    </button>
+                                </h2>
+                                <div id="c2" class="accordion-collapse collapse" data-bs-parent="#accCartera">
+                                    <div class="accordion-body bg-white text-muted small">
+                                        <ul>
+                                            <li>Últimos dos desprendibles de pago.</li>
+                                            <li>Certificados de deuda de las entidades a comprar (si los tienes).</li>
+                                            <li>Fotocopia de cédula ampliada.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5 d-none d-lg-block text-center" data-aos="fade-left">
+                        <img src="{% static 'img/fondo_cartera.png' %}"
+                             alt="Saneamiento Financiero Opcifin"
+                             class="floating-asset">
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-info border-0 p-4 shadow-sm rounded-4" data-aos="fade-up">
+                <p class="mb-0 small"><i class="bi bi-lightning-fill text-warning"></i> <strong>Tip OPCIFIN:</strong> Al unificar tus deudas, liberas hasta un 40% de tu salario mensual que antes se iba en puros intereses de mora.</p>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-lg p-4 text-center" style="position: sticky; top: 110px; border-radius: 20px; background: #fefefe;" data-aos="fade-left">
+                <div class="mb-3">
+                    <i class="bi bi-heart-pulse-fill text-danger" style="font-size: 3.5rem;"></i>
+                </div>
+                <h4 class="fw-bold text-danger">¡Sana tus finanzas!</h4>
+                <p class="small text-muted mb-4">Realizamos el estudio de tu reporte de centrales sin costo inicial.</p>
+
+                <a href="https://wa.me/573102001662?text=Hola,%20deseo%20asesoría%20para%20compra%20de%20cartera" target="_blank" class="btn btn-success btn-lg w-100 py-3 fw-bold rounded-pill shadow-sm mb-3">
+                    <i class="bi bi-whatsapp me-2"></i>Consultar mi caso
+                </a>
+
+                <a href="{% url 'home' %}#registro" class="btn btn-outline-dark w-100 py-2 rounded-pill small">
+                    Registrar solicitud
+                </a>
+
+                <div class="mt-4 pt-3 border-top">
+                    <p class="x-small text-muted mb-0"><i class="bi bi-shield-lock-fill text-success"></i> 100% confidencial.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

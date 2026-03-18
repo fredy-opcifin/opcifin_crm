@@ -1,0 +1,140 @@
+{% extends 'web_opcifin/index.html' %}
+{% load static %}
+
+{% block title %}Préstamos Personales y Libre Inversión | OPCIFIN{% endblock %}
+
+{% block content %}
+<style>
+    .floating-asset {
+        animation: float 5s ease-in-out infinite;
+        filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.1));
+        max-width: 100%;
+        height: auto;
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-15px); }
+        100% { transform: translateY(0px); }
+    }
+
+    .step-badge {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--encabezado);
+        color: white;
+        font-weight: bold;
+        border-radius: 50%;
+    }
+</style>
+
+<div style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{% static "img/prestamos_personales_banner.jpg" %}') no-repeat center/cover; padding: 110px 0; color: white; text-align: center; border-bottom: 5px solid var(--detalles);">
+    <div class="container" data-aos="zoom-in">
+        <h1 class="display-3 fw-bold">Préstamos <span style="color: var(--detalles);">Personales</span></h1>
+        <p class="lead fs-4 fw-light" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.9);">Soluciones de libre inversión con la agilidad que tu ritmo de vida exige.</p>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row g-5">
+        <div class="col-lg-8">
+            <div data-aos="fade-up">
+                <h2 class="fw-bold mb-4" style="color: var(--encabezado);">La respuesta inmediata a tus proyectos</h2>
+                <p class="fs-5 text-muted">
+                    Nuestra línea de <strong>Crédito de Consumo</strong> está diseñada para ofrecerte liquidez sin complicaciones. Ya sea para un imprevisto, un viaje o esa compra que no puede esperar, en <strong>OPCIFIN</strong> gestionamos tu solicitud ante entidades financieras que priorizan la agilidad y el mínimo papeleo.
+                </p>
+            </div>
+
+            <div class="card border-0 bg-light p-4 my-5 rounded-4 shadow-sm border-start border-5 border-info" data-aos="fade-up">
+                <div class="row text-center align-items-center">
+                    <div class="col-md-6 border-end border-2 border-white">
+                        <h6 class="text-uppercase fw-bold text-muted small mb-2">Monto Disponible</h6>
+                        <h3 class="fw-bold" style="color: var(--encabezado);">Hasta 100 Millones</h3>
+                        <p class="small mb-0">Sujeto a capacidad de endeudamiento</p>
+                    </div>
+                    <div class="col-md-6 ps-md-4">
+                        <h6 class="text-uppercase fw-bold text-muted small mb-2">Respuesta en Línea</h6>
+                        <h3 class="fw-bold" style="color: var(--encabezado);">24 Horas</h3>
+                        <p class="small mb-0">Procesos ágiles y 100% seguros</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rounded-5 p-4 p-md-5 mb-5 shadow-sm"
+                 style="background-color: #f0faff; border: 1px solid #e1f0f7;"
+                 data-aos="fade-up">
+
+                <div class="row align-items-center">
+                    <div class="col-lg-7">
+                        <h3 class="fw-bold mb-4 pb-2" style="color: var(--encabezado); border-bottom: 3px solid var(--detalles); display: inline-block;">
+                            ¿Cómo obtenerlo?
+                        </h3>
+
+                        <div class="mt-3">
+                            <div class="d-flex mb-4">
+                                <div class="step-badge me-3 shadow-sm">1</div>
+                                <div>
+                                    <h6 class="fw-bold mb-1">Pre-estudio Digital</h6>
+                                    <p class="text-muted small">Validamos tu perfil en centrales de riesgo de manera inmediata para conocer tu viabilidad.</p>
+                                </div>
+                            </div>
+                            <div class="d-flex mb-4">
+                                <div class="step-badge me-3 shadow-sm">2</div>
+                                <div>
+                                    <h6 class="fw-bold mb-1">Documentación Simple</h6>
+                                    <p class="text-muted small">Cédula al 150%, extractos bancarios y soportes de ingresos básicos.</p>
+                                </div>
+                            </div>
+                            <div class="d-flex mb-0">
+                                <div class="step-badge me-3 shadow-sm">3</div>
+                                <div>
+                                    <h6 class="fw-bold mb-1">Desembolso Directo</h6>
+                                    <p class="text-muted small">Una vez aprobado, el dinero se transfiere directamente a tu cuenta bancaria personal.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5 d-none d-lg-block text-center" data-aos="fade-left">
+                        <img src="{% static 'img/fondo_prestamos.png' %}"
+                             alt="Préstamos Personales Opcifin"
+                             class="floating-asset">
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-light border-start border-4 border-warning shadow-sm rounded-4 p-4" data-aos="fade-up">
+                <p class="mb-0 small text-muted">
+                    <i class="bi bi-info-circle-fill text-warning me-2"></i>
+                    <strong>Nota importante:</strong> Los préstamos personales son ideales para empleados públicos, privados (término indefinido) y prestadores de servicios con ingresos verificables. Las tasas varían según el score crediticio en centrales.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-lg p-4 text-center" style="position: sticky; top: 110px; border-radius: 20px; background: #fefefe;" data-aos="fade-left">
+                <i class="bi bi-lightning-charge-fill display-4 text-warning mb-3"></i>
+                <h4 class="fw-bold" style="color: var(--encabezado);">¿Necesitas liquidez hoy?</h4>
+                <p class="text-muted small mb-4">Nuestro equipo en Valledupar te asesora sin costo para que obtengas el mejor cupo posible.</p>
+
+                <a href="https://wa.me/573102001662?text=Hola,%20necesito%20información%20sobre%20un%20préstamo%20personal" target="_blank" class="btn btn-success btn-lg w-100 py-3 fw-bold rounded-pill shadow-sm mb-3 transition-all">
+                    <i class="bi bi-whatsapp me-2"></i>Consultar por WhatsApp
+                </a>
+
+                <a href="{% url 'home' %}#registro" class="btn btn-outline-dark w-100 py-2 rounded-pill small">
+                    Dejar mis datos
+                </a>
+
+                <div class="mt-4 pt-3 border-top">
+                    <p class="x-small text-muted mb-0">
+                        <i class="bi bi-shield-check text-success"></i> Sin pagos por adelantado.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
