@@ -105,8 +105,6 @@ Responsabilidades:
 
 ## Capturas del sistema
 
-## Capturas
-
 ### Dashboard
 
 ![Dashboard](screenshots/dashboard.png)
