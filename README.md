@@ -105,7 +105,19 @@ Responsabilidades:
 
 ## Capturas del sistema
 
-(Agregar imágenes aquí)
+## Capturas
+
+### Dashboard
+
+![Dashboard](screenshots/dashboard.png)
+
+### Gestión de Leads
+
+![Leads](screenshots/leads.png)
+
+### Radicaciones
+
+![Radicaciones](screenshots/radicaciones.png)
 
 ---
 
