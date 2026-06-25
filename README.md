@@ -1,124 +1,124 @@
-# CRM Financiero para Gestión de Créditos por Libranza
+ # Financial CRM for Payment Credit Management
 
-## Descripción
+## Description
 
-Sistema web y CRM desarrollado para una empresa del sector financiero especializada en créditos por libranza.
+Financial CRM built with Django for lead management, customer tracking and loan application workflows.
 
-La solución fue diseñada para digitalizar procesos que anteriormente se realizaban de forma manual, permitiendo gestionar clientes, leads, radicaciones y documentación desde una única plataforma.
-
----
-
-## Problema identificado
-
-La empresa no contaba con:
-
-- Sitio web corporativo.
-- Captación digital de leads.
-- Sistema de seguimiento comercial.
-- Gestión centralizada de clientes.
-- Control eficiente de radicaciones.
-
-La información era gestionada manualmente, dificultando el seguimiento y control de los procesos.
+The solution was designed to digitize processes that were previously carried out manually, allowing clients, leads, filings and documentation to be managed from a single platform.
 
 ---
 
-## Solución desarrollada
+## Problem identified
 
-Diseñé e implementé una plataforma web basada en Django que permitió:
+The company did not have:
 
-- Captar prospectos desde el sitio web.
-- Registrar clientes manualmente.
-- Gestionar asesores.
-- Realizar seguimiento de radicaciones.
-- Organizar documentación asociada a créditos.
-- Controlar el estado de cada solicitud.
+- Corporate website.
+- Digital lead capture.
+- Commercial monitoring system.
+- Centralized customer management.
+- Efficient control of filings.
 
----
-
-## Funcionalidades principales
-
-### Gestión de Leads
-
-- Registro automático desde formularios web.
-- Clasificación por estado.
-- Asignación de asesor.
-- Priorización de oportunidades.
-
-### Gestión de Clientes
-
-- Registro completo de información personal.
-- Historial de seguimiento.
-- Clasificación por perfil laboral.
-
-### Gestión de Radicaciones
-
-- Seguimiento de solicitudes.
-- Control documental.
-- Estados del proceso.
-- Observaciones y recordatorios.
-
-### Gestión de Usuarios
-
-- Roles de acceso:
-  - Asesor
-  - Auxiliar
-  - Coordinador
-
-### Dashboard Operativo
-
-- Indicadores básicos.
-- Seguimiento de operaciones.
-- Visualización de estados.
+The information was managed manually, making it difficult to monitor and control the processes.
 
 ---
 
-## Tecnologías utilizadas
+## Solution developed
 
-- Python
-- Django
+I designed and implemented a Django-based web platform that allowed:
+
+- Capture prospects from the website.
+- Register clients manually.
+- Manage advisors.
+- Track filings.
+- Organize documentation associated with credits.
+- Control the status of each request.
+
+---
+
+## Main features
+
+### Lead Management
+
+- Automatic registration from web forms.
+- Classification by state.
+- Advisor assignment.
+- Prioritization of opportunities.
+
+### Customer Management
+
+- Complete registration of personal information.
+- Tracking history.
+- Classification by job profile.
+
+### Filing Management
+
+- Request tracking.
+- Document control.
+- Process states.
+- Observations and reminders.
+
+### User Management
+
+- Access roles:
+  - Advisor
+  - Assistant
+  - Coordinator
+
+### Operational Dashboard
+
+- Basic indicators.
+- Operations monitoring.
+- Status visualization.
+
+---
+
+## Technologies used
+
+-Python
+-Django
 - SQLite
-- HTML
-- CSS
+-HTML
+-CSS
 - JavaScript
-- Git
+-Git
 - GitHub
-- PythonAnywhere
+-PythonAnywhere
 
 ---
 
-## Mi participación
+## My participation
 
-Proyecto desarrollado de manera autónoma.
+Project developed autonomously.
 
-Responsabilidades:
+Responsibilities:
 
-- Levantamiento de requerimientos.
-- Diseño funcional.
-- Modelado de datos.
-- Desarrollo backend.
-- Desarrollo frontend.
-- Despliegue.
-- Mantenimiento.
-- Soporte funcional.
+- Raising requirements.
+- Functional design.
+- Data modeling.
+- Backend development.
+- Frontend development.
+- Deployment.
+- Maintenance.
+- Functional support.
 
 ---
 
-## Capturas del sistema
+## System captures
 
 ### Dashboard
 
 ![Dashboard](screenshots/dashboard.png)
 
-### Gestión de Leads
+### Lead Management
 
 ![Leads](screenshots/leads.png)
 
-### Radicaciones
+### Filings
 
 ![Radicaciones](screenshots/radicaciones.png)
 
 ---
 
-## Estado del proyecto
+## Project status
 
-Versión funcional desplegada y utilizada en entorno real para gestión de procesos comerciales y financieros.
+Functional version deployed and used in a real environment for management of commercial and financial processes.
